@@ -5,6 +5,7 @@ import { connect } from 'preact-redux';
 import { getSelectedBox, selectBox } from '../../reducers/ui';
 import { getBoxById, getChildrenForId, createBox, setAnchor } from '../../reducers/box';
 import Gizmo from './Gizmo';
+import { clamp } from '../../utils';
 let num = 10;
 export class Box extends Component {
 	componentDidMount() {
@@ -90,9 +91,30 @@ export class Box extends Component {
 }
 
 export function mapStateToProps(state, { id = '' }) {
+	let {
+		offsetLeft = 0,
+		offsetRight = 0,
+		offsetTop = 0,
+		offsetBottom = 0,
+		anchorLeft = 0,
+		anchorRight = 0,
+		anchorTop = 0,
+		anchorBottom = 0,
+	} = getBoxById(state, id);
+	anchorRight = clamp(Math.max(0, anchorLeft), anchorRight, 1);
+	anchorLeft = clamp(0, anchorLeft, anchorRight);
+	anchorBottom = clamp(Math.max(0, anchorTop), anchorBottom, 1);
+	anchorTop = clamp(0, anchorTop, anchorBottom);
 	return {
 		selected: getSelectedBox(state) === id,
-		...getBoxById(state, id),
+		offsetLeft,
+		offsetRight,
+		offsetTop,
+		offsetBottom,
+		anchorLeft,
+		anchorRight,
+		anchorTop,
+		anchorBottom,
 		children: getChildrenForId(state, id),
 	};
 }

@@ -86,10 +86,10 @@ export function reducerBox(state = initialBox, action) {
 		case BOX_ANCHOR_SET:
 			return {
 				...state,
-				anchorLeft: clamp(0, action.anchorLeft, action.anchorRight),
-				anchorRight: clamp(action.anchorLeft, action.anchorRight, 1),
-				anchorTop: clamp(0, action.anchorTop, action.anchorBottom),
-				anchorBottom: clamp(action.anchorTop, action.anchorBottom, 1),
+				anchorLeft: action.anchorLeft,
+				anchorRight:action.anchorRight,
+				anchorTop: action.anchorTop,
+				anchorBottom: action.anchorBottom,
 			};
 	}
 }
@@ -102,9 +102,27 @@ export const getById = (state) => {
 };
 export const getBoxById = (state, id) => {
 	const {
-		[id]: box = {},
+		[id]: {
+			offsetLeft = 0,
+			offsetRight = 0,
+			offsetTop = 0,
+			offsetBottom = 0,
+			anchorLeft = 0,
+			anchorRight = 0,
+			anchorTop = 0,
+			anchorBottom = 0,
+		} = {},
 	} = getById(state, id);
-	return box;
+	return {
+		offsetLeft: parseFloat(offsetLeft),
+		offsetRight: parseFloat(offsetRight),
+		offsetTop: parseFloat(offsetTop),
+		offsetBottom: parseFloat(offsetBottom),
+		anchorLeft: parseFloat(anchorLeft),
+		anchorRight: parseFloat(anchorRight),
+		anchorTop: parseFloat(anchorTop),
+		anchorBottom: parseFloat(anchorBottom),
+	};
 };
 export const getSelectedBoxObj = (state) => {
 	const id = getSelectedBox(state);
