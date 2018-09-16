@@ -14,7 +14,7 @@ export default function App() {
 				<Editor />
 			</main>
 			<footer>
-				<h2>css ui thingy</h2>
+				<h2>boxboxhtml</h2>
 				<a href="https://twitter.com/SeanSLeBlanc">Contact</a>
 			</footer>
 		</div>
