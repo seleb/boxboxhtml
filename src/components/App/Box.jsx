@@ -6,7 +6,7 @@ import { getSelectedBox, selectBox } from '../../reducers/ui';
 import { getBoxById, getChildrenForId, createBox, setAnchor } from '../../reducers/box';
 import Gizmo from './Gizmo';
 import { clamp } from '../../utils';
-let num = 10;
+
 const colourCycle = [
 	[89, 208, 241],
 	[239, 134, 149],
@@ -15,10 +15,11 @@ const colourCycle = [
 	[165, 157, 195]
 ];
 
+let num = 20;
 export class Box extends Component {
 	componentDidMount() {
 		if (num > 0) {
-			const n = Math.floor(Math.random() * 2) + 1;
+			const n = Math.floor(Math.random() * 3) + 1;
 			num -= n;
 			for (let i = 0; i < n; ++i) {
 				this.props.createBox(this.props.id);
@@ -27,10 +28,10 @@ export class Box extends Component {
 		if (this.props.id !== 'root') {
 			this.props.setAnchor({
 				id: this.props.id,
-				anchorLeft: Math.random() * 0.5,
-				anchorRight: Math.random() * 0.5 + 0.5,
-				anchorTop: Math.random() * 0.5,
-				anchorBottom: Math.random() * 0.5 + 0.5,
+				anchorLeft: Math.random() * 0.25,
+				anchorRight: Math.random() * 0.25 + 0.7,
+				anchorTop: Math.random() * 0.25,
+				anchorBottom: Math.random() * 0.25 + 0.75,
 			});
 		}
 	}
