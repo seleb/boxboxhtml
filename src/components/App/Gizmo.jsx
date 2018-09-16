@@ -84,9 +84,9 @@ export class Gizmo extends Component {
 		return (
 			<div class="gizmo" onMouseUp={this.onMouseUp}>
 				<div class="gizmo-translate">
-					<div class={`x ${dragging==='x' ? 'selected': ''}`} onMouseDown={this.onMouseDownX}/>
-					<div class={`y ${dragging==='y' ? 'selected': ''}`} onMouseDown={this.onMouseDownY}/>
-					<div class={`both ${dragging==='both' ? 'selected': ''}`} onMouseDown={this.onMouseDownBoth}/>
+					{(!dragging || dragging === 'x') && <div class={`x ${dragging==='x' ? 'selected': ''}`} onMouseDown={this.onMouseDownX}/>}
+					{(!dragging || dragging === 'y') && <div class={`y ${dragging==='y' ? 'selected': ''}`} onMouseDown={this.onMouseDownY}/>}
+					{(!dragging || dragging === 'both') && <div class={`both ${dragging==='both' ? 'selected': ''}`} onMouseDown={this.onMouseDownBoth}/>}
 				</div>
 			</div>
 		);
