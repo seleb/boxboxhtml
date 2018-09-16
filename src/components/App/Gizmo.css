@@ -3,7 +3,6 @@
 	height: 100px;
 	position: relative;
 	z-index: 100;
-	pointer-events: initial;
 }
 
 .gizmo-translate {
@@ -46,6 +45,7 @@
 .gizmo-translate>.y,
 .gizmo-translate>.both {
 	opacity: 0.75;
+	pointer-events: initial;
 	cursor: move;
 }
 .gizmo-translate>.x:hover,
