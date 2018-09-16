@@ -75,14 +75,14 @@ export class Editor extends Component {
 				<input name="anchorLeft" type="range" min="0" max="1" step="any" value={anchorLeft} onInput={this.onInputAnchor} />
 				<input name="anchorLeft" type="number" min="0" max="1" step="0.1" value={anchorLeft} onInput={this.onInputAnchor} />
 				<label htmlFor="anchorRight">Right</label>
-				<input name="anchorRight" type="range" min="0" max="1" step="any" value={anchorRight} onInput={this.onInputAnchor} />
-				<input name="anchorRight" type="number" min="0" max="1" step="0.1" value={anchorRight} onInput={this.onInputAnchor} />
+				<input name="anchorRight" type="range" min={anchorLeft} max="1" step="any" value={anchorRight} onInput={this.onInputAnchor} />
+				<input name="anchorRight" type="number" min={anchorLeft} max="1" step="0.1" value={anchorRight} onInput={this.onInputAnchor} />
 				<label htmlFor="anchorTop">Top</label>
 				<input name="anchorTop" type="range" min="0" max="1" step="any" value={anchorTop} onInput={this.onInputAnchor} />
 				<input name="anchorTop" type="number" min="0" max="1" step="0.1" value={anchorTop} onInput={this.onInputAnchor} />
 				<label htmlFor="anchorBottom">Bottom</label>
-				<input name="anchorBottom" type="range" min="0" max="1" step="any" value={anchorBottom} onInput={this.onInputAnchor} />
-				<input name="anchorBottom" type="number" min="0" max="1" step="0.1" value={anchorBottom} onInput={this.onInputAnchor} />
+				<input name="anchorBottom" type="range" min={anchorTop} max="1" step="any" value={anchorBottom} onInput={this.onInputAnchor} />
+				<input name="anchorBottom" type="number" min={anchorTop} max="1" step="0.1" value={anchorBottom} onInput={this.onInputAnchor} />
 			</section>
 		);
 	}
