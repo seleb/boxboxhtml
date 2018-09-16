@@ -5,7 +5,7 @@
 	justify-content: center;
 	height: 100%;
 	width: 100%;
-	background: var(--bg);
+	background: white;
 	color: black;
 	font-size: 100%;
 }
@@ -41,15 +41,15 @@
 	width: 100%;
 	display: flex;
 	justify-content: flex-start;
-	background: var(--primary);
+	background: black;
 	color: white;
 }
 
 .app>footer>a {
 	margin-left: 1em;
-	color: var(--text-primary);
+	color: grey;
 }
 
 .app>footer>a:hover {
-	color: var(--accent);
+	color: white;
 }
