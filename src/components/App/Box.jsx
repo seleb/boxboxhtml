@@ -4,6 +4,7 @@ import './Box.css';
 import { connect } from 'preact-redux';
 import { getSelectedBox, selectBox } from '../../reducers/ui';
 import { getBoxById, getChildrenForId, createBox, setAnchor } from '../../reducers/box';
+import Gizmo from './Gizmo';
 let num = 10;
 export class Box extends Component {
 	componentDidMount() {
@@ -25,15 +26,18 @@ export class Box extends Component {
 		}
 	}
 
-	onClick = ({
-		target,
-		currentTarget,
-	}) => {
+	onClick = (event) => {
+		const {
+			target,
+			currentTarget,
+		} = event;
 		if (target !== currentTarget) {
 			return;
 		}
 		if (!this.props.selected) {
 			this.props.selectBox(this.props.id);
+			event.preventDefault();
+			event.stopPropagation();
 		}
 	}
 
@@ -73,10 +77,11 @@ export class Box extends Component {
 				<div class={`box ${selected ? 'selected' : ''}`} onClick={this.onClick} style={style}>
 					{id}
 					<ol class="children">
-					{children.map(child => <li key={child}><BoxConnected id={child} /></li>)}
+						{children.map(child => <li key={child}><BoxConnected id={child} /></li>)}
 					</ol>
 				</div>
-			<div class="box-anchor" style={anchorStyle}>
+				<div class="box-anchor" style={anchorStyle}>
+					{selected && <Gizmo />}
 					<div class="box-offset" style={offsetStyle} />
 				</div>
 			</Fragment>

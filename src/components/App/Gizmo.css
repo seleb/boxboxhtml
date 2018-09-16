@@ -1,0 +1,58 @@
+.gizmo {
+	width: 100px;
+	height: 100px;
+	position: relative;
+	z-index: 100;
+	pointer-events: initial;
+}
+
+.gizmo-translate {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 50%;
+	height: 50%;
+}
+
+.gizmo-translate>.x {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 5px;
+	background: red;
+}
+
+.gizmo-translate>.y {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 5px;
+	height: 100%;
+	background: green;
+}
+
+
+.gizmo-translate>.both {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	width: 50%;
+	height: 50%;
+	background: yellow;
+}
+
+.gizmo-translate>.x,
+.gizmo-translate>.y,
+.gizmo-translate>.both {
+	opacity: 0.75;
+	cursor: move;
+}
+.gizmo-translate>.x:hover,
+.gizmo-translate>.y:hover,
+.gizmo-translate>.both:hover,
+.gizmo-translate>.x.selected,
+.gizmo-translate>.y.selected,
+.gizmo-translate>.both.selected {
+	opacity: 1;
+}

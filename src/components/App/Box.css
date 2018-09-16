@@ -14,7 +14,9 @@
 }
 
 .box-anchor {
-	display: block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	position: absolute;
 	background: none;
 	border: dashed red 1px;
@@ -26,4 +28,7 @@
 	background: none;
 	border: dashed blue 1px;
 	pointer-events: none;
+}
+.box-anchor>.gizmo {
+	flex: none;
 }
