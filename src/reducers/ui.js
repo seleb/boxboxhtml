@@ -16,7 +16,7 @@ export default function reducer(state = initialState, action) {
 		case UI_BOX_SELECT:
 			return {
 				...state,
-				selectedBox: action.box,
+				selectedBox: action.box === 'root' ? '' : action.box,
 			};
 		default:
 			return state;
