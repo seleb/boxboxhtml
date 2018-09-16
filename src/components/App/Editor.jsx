@@ -63,7 +63,7 @@ export class Editor extends Component {
 		// 	right: `calc(${(1.0 - anchorRight)*100}% + ${offsetRight}px)`,
 		// };
 		return (
-			<div class="editor" >
+			<section class="editor" >
 				<h2>Offset</h2>
 				<label htmlFor="offsetLeft">Left</label><input name="offsetLeft" type="range" min="-100" max="100" step="any" value={offsetLeft} onInput={this.onInputOffset} />
 				<label htmlFor="offsetRight">Right</label><input name="offsetRight" type="range" min="-100" max="100" step="any" value={offsetRight} onInput={this.onInputOffset} />
@@ -74,7 +74,7 @@ export class Editor extends Component {
 				<label htmlFor="anchorRight">Right</label><input name="anchorRight" type="range" min="0" max="1" step="any" value={anchorRight} onInput={this.onInputAnchor} />
 				<label htmlFor="anchorTop">Top</label><input name="anchorTop" type="range" min="0" max="1" step="any" value={anchorTop} onInput={this.onInputAnchor} />
 				<label htmlFor="anchorBottom">Bottom</label><input name="anchorBottom" type="range" min="0" max="1" step="any" value={anchorBottom} onInput={this.onInputAnchor} />
-			</div>
+			</section>
 		);
 	}
 }

@@ -4,5 +4,9 @@ import './Outliner.css';
 import OutlinerEntry from './OutlinerEntry';
 
 export default function Outliner() {
-	return <div class="outliner"><OutlinerEntry id="root" /></div>;
+	return (
+		<section class="outliner">
+			<OutlinerEntry id="root" />
+		</section>
+	);
 }

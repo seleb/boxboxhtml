@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 
 import './App.css';
-import Box from './App/Box';
+import Boxes from './App/Boxes';
 import Editor from './App/Editor';
 import Outliner from './App/Outliner';
 
@@ -10,9 +10,7 @@ export default function App() {
 		<div class="app">
 			<main>
 				<Outliner />
-				<section class="boxes">
-					<Box id="root" />
-				</section>
+				<Boxes />
 				<Editor />
 			</main>
 			<footer>
