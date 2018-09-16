@@ -1,0 +1,35 @@
+/* minimal style for preloader */
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	background: white;
+	color: black;
+	line-height: 1.5;
+}
+
+html {
+	overflow: auto;
+	background-color: white;
+}
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100%;
+	font-family: 'Courier New', Courier, monospace;
+}
+
+body>p {
+	width: 3em;
+	white-space: pre;
+}

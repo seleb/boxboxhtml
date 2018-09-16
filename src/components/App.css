@@ -1,0 +1,55 @@
+.app {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+	background: var(--bg);
+	color: black;
+	font-size: 100%;
+}
+
+.app>main {
+	flex: auto;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 1em 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+.app>main>.outliner{
+	flex: auto;
+}
+.app>main>.boxes {
+	flex: auto;
+	position: relative;
+	min-width: 500px;
+	min-height: 500px;
+	border: dotted 1px black;
+}
+.app>main>.editor{
+	flex: auto;
+}
+
+.app>footer {
+	flex: none;
+	font-size: .8em;
+	padding: 1em 3em;
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	background: var(--primary);
+	color: white;
+}
+
+.app>footer>a {
+	margin-left: 1em;
+	color: var(--text-primary);
+}
+
+.app>footer>a:hover {
+	color: var(--accent);
+}

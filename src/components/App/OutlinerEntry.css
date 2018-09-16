@@ -1,0 +1,17 @@
+.outliner-entry {
+	border: solid 1px black;
+	border-right: none;
+	border-bottom: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.outliner-entry.selected {
+	background: red;
+}
+.outliner-entry>.children {
+	margin-left: 1em;
+}
+.outliner-entry.selected>.children {
+	opacity: 0.5;
+}

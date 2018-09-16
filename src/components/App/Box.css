@@ -1,0 +1,29 @@
+.box {
+	display: block;
+	position: absolute;
+	background: rgba(0,0,0,0.5);
+	border: solid 5px black;
+	color: white;
+}
+
+.box.selected {
+	border-color: white;
+}
+.box.selected>.children {
+	opacity: 0.5;
+}
+
+.box-anchor {
+	display: block;
+	position: absolute;
+	background: none;
+	border: dashed red 1px;
+	pointer-events: none;
+}
+.box-anchor>.box-offset {
+	display: block;
+	position: absolute;
+	background: none;
+	border: dashed blue 1px;
+	pointer-events: none;
+}
