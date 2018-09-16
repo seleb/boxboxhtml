@@ -5,7 +5,7 @@ import { connect } from 'preact-redux';
 import { getSelectedBox } from '../../reducers/ui';
 import { getBoxById, setAnchor } from '../../reducers/box';
 export class Gizmo extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.state = {
 			dragging: false,
@@ -38,6 +38,7 @@ export class Gizmo extends Component {
 	onMouseUp = event => {
 		event.preventDefault();
 		event.stopPropagation();
+		// stop dragging
 		this.setState({
 			dragging: false,
 		});
@@ -50,43 +51,56 @@ export class Gizmo extends Component {
 		const {
 			dragging = false,
 		} = this.state;
-		const {
-			clientX = 0,
-			clientY = 0,
-		} = event;
-		const deltaX = dragging !== 'y' ? clientX - this.x : 0;
-		this.x = clientX;
-		const deltaY = dragging !== 'x' ? clientY - this.y : 0;
-		this.y = clientY;
+		const { x = 0, y = 0 } = this.getMousePos(event);
+		const deltaX = dragging !== 'y' ? x - this.x : 0;
+		this.x = x;
+		const deltaY = dragging !== 'x' ? y - this.y : 0;
+		this.y = y;
 		this.props.setAnchor({
 			id: this.props.id,
-			anchorLeft: this.props.anchorLeft + deltaX / 100,
-			anchorRight: this.props.anchorRight + deltaX / 100,
-			anchorTop: this.props.anchorTop + deltaY / 100,
-			anchorBottom: this.props.anchorBottom + deltaY / 100,
+			anchorLeft: this.props.anchorLeft + deltaX,
+			anchorRight: this.props.anchorRight + deltaX,
+			anchorTop: this.props.anchorTop + deltaY,
+			anchorBottom: this.props.anchorBottom + deltaY,
 		});
 	}
 
-	startDragging = (event) => {
+	getMousePos(event) {
 		const {
 			clientX = 0,
 			clientY = 0,
 		} = event;
-		this.x = clientX;
-		this.y = clientY;
+		return {
+			x: (clientX - this.parentX) / this.parentWidth,
+			y: (clientY - this.parentY) / this.parentHeight,
+		};
+	}
+
+	startDragging(event) {
+		// get parent dimensions for calculating new anchor positions
+		const parent = this.gizmo.parentElement.parentElement.parentElement.parentElement.parentElement; // :/
+		const { left = 0, right = 0, top = 0, bottom = 0 } = parent.getBoundingClientRect();
+		this.parentX = left;
+		this.parentY = right;
+		this.parentWidth = right - left;
+		this.parentHeight = bottom - top;
+		// get current mouse position as starting point to calc deltas
+		const { x = 0, y = 0 } = this.getMousePos(event);
+		this.x = x;
+		this.y = y;
 		document.addEventListener('mouseup', this.onMouseUp);
 		document.addEventListener('mousemove', this.onMouseMove);
 	}
 
-	render({}, {
+	render({ }, {
 		dragging = false,
 	}) {
 		return (
-			<div class="gizmo" onMouseUp={this.onMouseUp}>
+			<div class="gizmo" onMouseUp={this.onMouseUp} ref={gizmo => this.gizmo = gizmo}>
 				<div class="gizmo-translate">
-					{(!dragging || dragging === 'x') && <div class={`x ${dragging==='x' ? 'selected': ''}`} onMouseDown={this.onMouseDownX}/>}
-					{(!dragging || dragging === 'y') && <div class={`y ${dragging==='y' ? 'selected': ''}`} onMouseDown={this.onMouseDownY}/>}
-					{(!dragging || dragging === 'both') && <div class={`both ${dragging==='both' ? 'selected': ''}`} onMouseDown={this.onMouseDownBoth}/>}
+					{(!dragging || dragging === 'x') && <div class={`x ${dragging === 'x' ? 'selected' : ''}`} onMouseDown={this.onMouseDownX} />}
+					{(!dragging || dragging === 'y') && <div class={`y ${dragging === 'y' ? 'selected' : ''}`} onMouseDown={this.onMouseDownY} />}
+					{(!dragging || dragging === 'both') && <div class={`both ${dragging === 'both' ? 'selected' : ''}`} onMouseDown={this.onMouseDownBoth} />}
 				</div>
 			</div>
 		);
