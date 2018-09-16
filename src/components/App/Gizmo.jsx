@@ -1,68 +1,46 @@
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
+
+import { getDragging, setDragging } from '../../reducers/ui';
 
 import './Gizmo.css';
-import { connect } from 'preact-redux';
-import { getSelectedBox } from '../../reducers/ui';
-import { getBoxById, setAnchor } from '../../reducers/box';
+
 export class Gizmo extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			dragging: false,
-		};
-	}
-	onMouseDownX = event => {
-		event.preventDefault();
-		event.stopPropagation();
-		this.setState({
-			dragging: 'x',
-		});
-		this.startDragging(event);
-	}
-	onMouseDownY = event => {
-		event.preventDefault();
-		event.stopPropagation();
-		this.setState({
-			dragging: 'y',
-		});
-		this.startDragging(event);
-	}
-	onMouseDownBoth = event => {
-		event.preventDefault();
-		event.stopPropagation();
-		this.setState({
-			dragging: 'both',
-		});
-		this.startDragging(event);
+	componentDidUpdate({
+		dragging: oldDragging = false,
+	}) {
+		const {
+			dragging: newDragging = false,
+		} = this.props;
+		if (oldDragging !== newDragging && newDragging) {
+			this.startDragging(newDragging);
+		}
 	}
 	onMouseUp = event => {
 		event.preventDefault();
 		event.stopPropagation();
 		// stop dragging
-		this.setState({
-			dragging: false,
-		});
+		this.props.setDragging();
 		document.removeEventListener('mouseup', this.onMouseUp);
 		document.removeEventListener('mousemove', this.onMouseMove);
+		return false;
 	}
 	onMouseMove = event => {
 		event.preventDefault();
 		event.stopPropagation();
 		const {
 			dragging = false,
-		} = this.state;
+		} = this.props;
 		const { x = 0, y = 0 } = this.getMousePos(event);
 		const deltaX = dragging !== 'y' ? x - this.x : 0;
 		this.x = x;
 		const deltaY = dragging !== 'x' ? y - this.y : 0;
 		this.y = y;
-		this.props.setAnchor({
-			id: this.props.id,
-			anchorLeft: this.props.anchorLeft + deltaX,
-			anchorRight: this.props.anchorRight + deltaX,
-			anchorTop: this.props.anchorTop + deltaY,
-			anchorBottom: this.props.anchorBottom + deltaY,
+		this.props.onDrag({
+			deltaX,
+			deltaY,
 		});
+		return false;
 	}
 
 	getMousePos(event) {
@@ -76,7 +54,7 @@ export class Gizmo extends Component {
 		};
 	}
 
-	startDragging(event) {
+	startDragging(dir) {
 		// get parent dimensions for calculating new anchor positions
 		const parent = this.gizmo.parentElement.parentElement.parentElement.parentElement.parentElement; // :/
 		const { left = 0, right = 0, top = 0, bottom = 0 } = parent.getBoundingClientRect();
@@ -90,35 +68,20 @@ export class Gizmo extends Component {
 		this.y = y;
 		document.addEventListener('mouseup', this.onMouseUp);
 		document.addEventListener('mousemove', this.onMouseMove);
+		return false;
 	}
 
-	render({ }, {
-		dragging = false,
+	render({
+		children = [],
 	}) {
 		return (
-			<div class="gizmo" onMouseUp={this.onMouseUp} ref={gizmo => this.gizmo = gizmo}>
-				<div class="gizmo-translate">
-					{(!dragging || dragging === 'x') && <div class={`x ${dragging === 'x' ? 'selected' : ''}`} onMouseDown={this.onMouseDownX} />}
-					{(!dragging || dragging === 'y') && <div class={`y ${dragging === 'y' ? 'selected' : ''}`} onMouseDown={this.onMouseDownY} />}
-					{(!dragging || dragging === 'both') && <div class={`both ${dragging === 'both' ? 'selected' : ''}`} onMouseDown={this.onMouseDownBoth} />}
-				</div>
-			</div>
+			<div class="gizmo" ref={gizmo => this.gizmo = gizmo}>{children}</div>
 		);
 	}
 }
 
-export function mapStateToProps(state) {
-	const id = getSelectedBox(state);
-	return {
-		id,
-		...getBoxById(state, id),
-	};
-}
-
 const mapDispatchToProps = {
-	setAnchor,
+	setDragging,
 };
 
-const GizmoConnected = connect(mapStateToProps, mapDispatchToProps)(Gizmo);
-
-export default GizmoConnected;
+export default connect(undefined, mapDispatchToProps)(Gizmo);

@@ -14,24 +14,27 @@
 	flex: auto;
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	align-items: stretch;
+	justify-content: center;
 	padding: 1em 0;
 	width: 100%;
 	height: 100%;
 	overflow: auto;
 }
-.app>main>.outliner{
-	flex: auto;
+
+.app>main>.outliner {
+	flex: 1;
+	max-width: 300px;
 }
+
 .app>main>.boxes {
-	flex: auto;
+	flex: 3;
 	position: relative;
-	min-width: 500px;
-	min-height: 500px;
 	border: dotted 1px black;
 }
-.app>main>.editor{
-	flex: auto;
+
+.app>main>.editor {
+	flex: 1;
 	max-width: 300px;
 }
 

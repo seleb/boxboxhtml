@@ -1,11 +1,13 @@
 import { h, Component, Fragment } from 'preact';
-
-import './Box.css';
 import { connect } from 'preact-redux';
+import { clamp } from '../../utils';
+
 import { getSelectedBox, selectBox } from '../../reducers/ui';
 import { getBoxById, getChildrenForId, createBox, setAnchor } from '../../reducers/box';
-import Gizmo from './Gizmo';
-import { clamp } from '../../utils';
+
+import GizmoTranslate from './GizmoTranslate';
+
+import './Box.css';
 
 const colourCycle = [
 	[89, 208, 241],
@@ -36,7 +38,7 @@ export class Box extends Component {
 		}
 	}
 
-	onClick = (event) => {
+	onMouseDown = (event) => {
 		const {
 			target,
 			currentTarget,
@@ -48,6 +50,7 @@ export class Box extends Component {
 			this.props.selectBox(this.props.id);
 			event.preventDefault();
 			event.stopPropagation();
+			return false;
 		}
 	}
 
@@ -87,7 +90,7 @@ export class Box extends Component {
 		const colourOffset = colourCycle.findIndex(c => c === colour);
 		return (
 			<Fragment>
-				<div class={`box ${selected ? 'selected' : ''}`} onClick={this.onClick} style={style}>
+				<div class={`box ${selected ? 'selected' : ''}`} onMouseDown={this.onMouseDown} style={style}>
 					{id}
 					<ol class="children">
 						{children.map((child, idx) => {
@@ -96,10 +99,10 @@ export class Box extends Component {
 						})}
 					</ol>
 				</div>
-				<div class="box-anchor" style={anchorStyle}>
-					{selected && <Gizmo />}
+				{selected && <div class="box-anchor" style={anchorStyle}>
+					<GizmoTranslate />
 					<div class="box-offset" style={offsetStyle} />
-				</div>
+				</div>}
 			</Fragment>
 		);
 	}
