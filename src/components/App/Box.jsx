@@ -7,6 +7,14 @@ import { getBoxById, getChildrenForId, createBox, setAnchor } from '../../reduce
 import Gizmo from './Gizmo';
 import { clamp } from '../../utils';
 let num = 10;
+const colourCycle = [
+	[89, 208, 241],
+	[239, 134, 149],
+	[239, 237, 116],
+	[69, 221, 165],
+	[165, 157, 195]
+];
+
 export class Box extends Component {
 	componentDidMount() {
 		if (num > 0) {
@@ -54,6 +62,7 @@ export class Box extends Component {
 		anchorTop = 0,
 		anchorBottom = 1,
 		children = [],
+		colour = [0, 0, 0],
 	}) {
 		const anchorStyle = {
 			top: `${anchorTop * 100}%`,
@@ -72,13 +81,18 @@ export class Box extends Component {
 			bottom: `calc(${anchorStyle.bottom} + ${offsetStyle.bottom})`,
 			left: `calc(${anchorStyle.left} + ${offsetStyle.left})`,
 			right: `calc(${anchorStyle.right} + ${offsetStyle.right})`,
+			background: `rgba(${colour.join(', ')}, ${selected ? 1 : 0.75})`,
 		};
+		const colourOffset = colourCycle.findIndex(c => c === colour);
 		return (
 			<Fragment>
 				<div class={`box ${selected ? 'selected' : ''}`} onClick={this.onClick} style={style}>
 					{id}
 					<ol class="children">
-						{children.map(child => <li key={child}><BoxConnected id={child} /></li>)}
+						{children.map((child, idx) => {
+							const colour = colourCycle[(idx + colourOffset + 1) % colourCycle.length];
+							return <li key={child}><BoxConnected id={child} colour={colour} /></li>;
+						})}
 					</ol>
 				</div>
 				<div class="box-anchor" style={anchorStyle}>
