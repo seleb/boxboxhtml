@@ -2,11 +2,13 @@ import { h, Component, Fragment } from 'preact';
 import { connect } from 'preact-redux';
 import { clamp } from '../../utils';
 
-import { getSelectedBox, getGrid, selectBox } from '../../reducers/ui';
+import { getSelectedBox, getGridAnchor, getGridOffset, selectBox } from '../../reducers/ui';
 import { getBoxById, getChildrenForId, createBox, setAnchor } from '../../reducers/box';
 
 import GizmoTranslate from './GizmoTranslate';
 import GizmoScale from './GizmoScale';
+import GizmoTranslateOffset from './GizmoTranslateOffset';
+import GizmoScaleOffset from './GizmoScaleOffset';
 
 import './Box.css';
 
@@ -77,9 +79,9 @@ export class Box extends Component {
 		};
 		const offsetStyle = {
 			top: `${offsetTop}px`,
-			bottom: `${offsetBottom}px`,
+			bottom: `${-offsetBottom}px`,
 			left: `${offsetLeft}px`,
-			right: `${offsetRight}px`,
+			right: `${-offsetRight}px`,
 		};
 		const style = {
 			top: `calc(${anchorStyle.top} + ${offsetStyle.top})`,
@@ -101,7 +103,10 @@ export class Box extends Component {
 					</ol>
 				</div>
 				{selected && <div class="box-anchor" style={anchorStyle}>
-					<div class="box-offset" style={offsetStyle} />
+					<div class="box-offset" style={offsetStyle}>
+						<GizmoTranslateOffset />
+						<GizmoScaleOffset />
+					</div>
 					<GizmoTranslate />
 					<GizmoScale />
 				</div>}
@@ -125,13 +130,20 @@ export function mapStateToProps(state, { id = '' }) {
 	anchorLeft = clamp(0, anchorLeft, anchorRight);
 	anchorBottom = clamp(Math.max(0, anchorTop), anchorBottom, 1);
 	anchorTop = clamp(0, anchorTop, anchorBottom);
-	const grid = getGrid(state);
-	if (grid) {
-		anchorRight = Math.round(anchorRight*grid)/grid;
-		anchorLeft = Math.round(anchorLeft*grid)/grid;
-		anchorTop = Math.round(anchorTop*grid)/grid;
-		anchorBottom = Math.round(anchorBottom*grid)/grid;
-	}
+	// const gridAnchor = getGridAnchor(state);
+	// if (gridAnchor) {
+	// 	anchorRight = Math.round(anchorRight * gridAnchor) / gridAnchor;
+	// 	anchorLeft = Math.round(anchorLeft * gridAnchor) / gridAnchor;
+	// 	anchorTop = Math.round(anchorTop * gridAnchor) / gridAnchor;
+	// 	anchorBottom = Math.round(anchorBottom * gridAnchor) / gridAnchor;
+	// }
+	// const gridOffset = getGridOffset(state);
+	// if (gridOffset) {
+	// 	offsetRight = Math.round(offsetRight / gridOffset) * gridOffset;
+	// 	offsetLeft = Math.round(offsetLeft / gridOffset) * gridOffset;
+	// 	offsetTop = Math.round(offsetTop / gridOffset) * gridOffset;
+	// 	offsetBottom = Math.round(offsetBottom / gridOffset) * gridOffset;
+	// }
 	return {
 		selected: getSelectedBox(state) === id,
 		offsetLeft,

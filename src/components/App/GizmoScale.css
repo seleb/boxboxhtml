@@ -2,7 +2,7 @@
 	position: absolute;
 	margin: auto;
 	pointer-events: initial;
-	background-color: yellow;
+	background-color: magenta;
 	opacity: 0;
 	transition: opacity 0.1s ease-in-out;
 	border-radius: 0.25em;
@@ -17,43 +17,43 @@
 /* edges */
 .gizmo-scale .top,
 .gizmo-scale .bottom {
-	left: 0.5em;
-	right: 0.5em;
+	left: 0;
+	right: 0;
 	height: 1em;
 }
 
 .gizmo-scale .top {
-	top: -0.5em;
+	top: -1em;
 	cursor: n-resize;
 }
 
 .gizmo-scale .bottom {
-	bottom: -0.5em;
+	bottom: -1em;
 	cursor: s-resize;
 }
 
 .gizmo-scale .left,
 .gizmo-scale .right {
-	top: 0.5em;
-	bottom: 0.5em;
+	top: 0;
+	bottom: 0;
 	width: 1em;
 }
 
 .gizmo-scale .left {
-	left: -0.5em;
+	left: -1em;
 	cursor: w-resize;
 }
 
 .gizmo-scale .right {
-	right: -0.5em;
+	right: -1em;
 	cursor: e-resize;
 }
 
 /* corners */
 .gizmo-scale .top.left {
-	top: -0.5em;
+	top: -1em;
 	bottom: initial;
-	left: -0.5em;
+	left: -1em;
 	right: initial;
 	width: 1em;
 	height: 1em;
@@ -61,27 +61,27 @@
 }
 .gizmo-scale .bottom.left {
 	top: initial;
-	bottom: -0.5em;
-	left: -0.5em;
+	bottom: -1em;
+	left: -1em;
 	right: initial;
 	width: 1em;
 	height: 1em;
 	cursor: sw-resize;
 }
 .gizmo-scale .top.right {
-	top: -0.5em;
+	top: -1em;
 	bottom: initial;
 	left: initial;
-	right: -0.5em;
+	right: -1em;
 	width: 1em;
 	height: 1em;
 	cursor: ne-resize;
 }
 .gizmo-scale .bottom.right {
 	top: initial;
-	bottom: -0.5em;
+	bottom: -1em;
 	left: initial;
-	right: -0.5em;
+	right: -1em;
 	width: 1em;
 	height: 1em;
 	cursor: se-resize;

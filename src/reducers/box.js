@@ -1,5 +1,5 @@
 import { generate } from 'shortid';
-import { getSelectedBox } from "./ui";
+import { getSelectedBox, getGridOffset, getGridAnchor } from "./ui";
 import { clamp } from '../utils';
 
 // actions
@@ -101,7 +101,7 @@ export const getById = (state) => {
 	return byId;
 };
 export const getBoxById = (state, id) => {
-	const {
+	let {
 		[id]: {
 			offsetLeft = 0,
 			offsetRight = 0,
@@ -113,6 +113,21 @@ export const getBoxById = (state, id) => {
 			anchorBottom = 0,
 		} = {},
 	} = getById(state, id);
+	
+	const gridAnchor = getGridAnchor(state);
+	if (gridAnchor > 0) {
+		anchorRight = Math.round(anchorRight * gridAnchor) / gridAnchor;
+		anchorLeft = Math.round(anchorLeft * gridAnchor) / gridAnchor;
+		anchorTop = Math.round(anchorTop * gridAnchor) / gridAnchor;
+		anchorBottom = Math.round(anchorBottom * gridAnchor) / gridAnchor;
+	}
+	const gridOffset = getGridOffset(state);
+	if (gridOffset > 0) {
+		offsetRight = Math.round(offsetRight / gridOffset) * gridOffset;
+		offsetLeft = Math.round(offsetLeft / gridOffset) * gridOffset;
+		offsetTop = Math.round(offsetTop / gridOffset) * gridOffset;
+		offsetBottom = Math.round(offsetBottom / gridOffset) * gridOffset;
+	}
 	return {
 		offsetLeft: parseFloat(offsetLeft),
 		offsetRight: parseFloat(offsetRight),

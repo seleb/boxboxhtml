@@ -1,7 +1,8 @@
 // actions
 export const UI_BOX_SELECT = 'ui:box:select';
 export const UI_DRAGGING_SET = 'ui:dragging:set';
-export const UI_GRID_SET = 'ui:grid:set';
+export const UI_GRIDANCHOR_SET = 'ui:gridanchor:set';
+export const UI_GRIDOFFSET_SET = 'ui:gridoffset:set';
 
 // action creators
 export function selectBox(box = '') {
@@ -10,15 +11,19 @@ export function selectBox(box = '') {
 export function setDragging(id = '') {
 	return { type: UI_DRAGGING_SET, id };
 }
-export function setGrid(grid = 0) {
-	return { type: UI_GRID_SET, grid };
+export function setGridAnchor(grid = 0) {
+	return { type: UI_GRIDANCHOR_SET, grid };
+}
+export function setGridOffset(grid = 0) {
+	return { type: UI_GRIDOFFSET_SET, grid };
 }
 
 // reducer
 const initialState = {
 	selectedBox: '',
 	dragging: '',
-	grid: 0,
+	gridAnchor: 10,
+	gridOffset: 10,
 };
 
 export default function reducer(state = initialState, action) {
@@ -33,10 +38,15 @@ export default function reducer(state = initialState, action) {
 				...state,
 				dragging: action.id,
 			};
-		case UI_GRID_SET:
+		case UI_GRIDANCHOR_SET:
 			return {
 				...state,
-				grid: action.grid,
+				gridAnchor: action.grid,
+			};
+		case UI_GRIDOFFSET_SET:
+			return {
+				...state,
+				gridOffset: action.grid,
 			};
 		default:
 			return state;
@@ -53,7 +63,11 @@ export const getDragging = (state) => {
 	const { dragging = '' } = getState(state);
 	return dragging;
 };
-export const getGrid = (state) => {
-	const { grid = 0 } = getState(state);
-	return grid;
+export const getGridAnchor = (state) => {
+	const { gridAnchor = 0 } = getState(state);
+	return Math.max(0, Math.floor(gridAnchor));
+};
+export const getGridOffset = (state) => {
+	const { gridOffset = 0 } = getState(state);
+	return Math.max(0, Math.floor(gridOffset));
 };

@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 
 import './Editor.css';
 import { connect } from 'preact-redux';
-import { getSelectedBox } from '../../reducers/ui';
+import { getSelectedBox, getGridAnchor, getGridOffset, setGridAnchor, setGridOffset } from '../../reducers/ui';
 import { getBoxById, getChildrenForId, setOffset, setAnchor } from '../../reducers/box';
 
 export class Editor extends Component {
@@ -44,6 +44,22 @@ export class Editor extends Component {
 		});
 	}
 
+	onInputGridAnchor = ({
+		currentTarget: {
+			value = 0,
+		},
+	}) => {
+		this.props.setGridAnchor(value);
+	}
+
+	onInputGridOffset = ({
+		currentTarget: {
+			value = 0,
+		},
+	}) => {
+		this.props.setGridOffset(value);
+	}
+
 	render({
 		id = '',
 		offsetLeft = 0,
@@ -54,9 +70,14 @@ export class Editor extends Component {
 		anchorRight = 1,
 		anchorTop = 0,
 		anchorBottom = 1,
+		gridAnchor = 0,
+		gridOffset = 0,
 	}) {
 		return (
 			<section class="editor" >
+				<h2>Grid</h2>
+				<label htmlFor="gridAnchor">Anchor Units: </label><input type="number" min="0" max="100" value={gridAnchor} onInput={this.onInputGridAnchor} />
+				<label htmlFor="gridOffset">Offset Pixels: </label><input type="number" min="0" value={gridOffset} onInput={this.onInputGridOffset} />
 				<h2>Offset</h2>
 				<label htmlFor="offsetLeft">Left</label>
 				<input name="offsetLeft" type="range" min="-100" max="100" step="any" value={offsetLeft} onInput={this.onInputOffset} />
@@ -94,12 +115,16 @@ export function mapStateToProps(state) {
 		id,
 		...getBoxById(state, id),
 		children: getChildrenForId(state, id),
+		gridAnchor: getGridAnchor(state),
+		gridOffset: getGridOffset(state),
 	};
 }
 
 const mapDispatchToProps = {
 	setOffset,
 	setAnchor,
+	setGridAnchor,
+	setGridOffset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Editor);

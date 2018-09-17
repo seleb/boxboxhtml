@@ -11,7 +11,7 @@
 }
 
 .box.selected {
-	border: solid 1px white;
+	border: none;
 }
 .box.selected>.children {
 	opacity: 0.5;
@@ -21,14 +21,14 @@
 	z-index: 100;
 	position: absolute;
 	background: none;
-	border: dashed red 2px;
+	border: dashed magenta 2px;
 	pointer-events: none;
 }
 .box-anchor>.box-offset {
 	display: block;
 	position: absolute;
 	background: none;
-	border: dashed blue 2px;
+	border: dashed cyan 2px;
 	pointer-events: none;
 }
 .box-anchor>.gizmo {

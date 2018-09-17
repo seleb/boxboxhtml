@@ -1,0 +1,88 @@
+.gizmo-scale-offset .gizmo-offset {
+	position: absolute;
+	margin: auto;
+	pointer-events: initial;
+	background-color: cyan;
+	opacity: 0;
+	transition: opacity 0.1s ease-in-out;
+	border-radius: 0.25em;
+}
+.gizmo-scale-offset .gizmo-offset:hover {
+	opacity: 1;
+}
+.gizmo-scale-offset .gizmo.selected .gizmo-offset {
+	opacity: 0.5;
+}
+
+/* edges */
+.gizmo-scale-offset .top,
+.gizmo-scale-offset .bottom {
+	left: 0.5em;
+	right: 0.5em;
+	height: 1em;
+}
+
+.gizmo-scale-offset .top {
+	top: -0.5em;
+	cursor: n-resize;
+}
+
+.gizmo-scale-offset .bottom {
+	bottom: -0.5em;
+	cursor: s-resize;
+}
+
+.gizmo-scale-offset .left,
+.gizmo-scale-offset .right {
+	top: 0.5em;
+	bottom: 0.5em;
+	width: 1em;
+}
+
+.gizmo-scale-offset .left {
+	left: -0.5em;
+	cursor: w-resize;
+}
+
+.gizmo-scale-offset .right {
+	right: -0.5em;
+	cursor: e-resize;
+}
+
+/* corners */
+.gizmo-scale-offset .top.left {
+	top: -0.5em;
+	bottom: initial;
+	left: -0.5em;
+	right: initial;
+	width: 1em;
+	height: 1em;
+	cursor: nw-resize;
+}
+.gizmo-scale-offset .bottom.left {
+	top: initial;
+	bottom: -0.5em;
+	left: -0.5em;
+	right: initial;
+	width: 1em;
+	height: 1em;
+	cursor: sw-resize;
+}
+.gizmo-scale-offset .top.right {
+	top: -0.5em;
+	bottom: initial;
+	left: initial;
+	right: -0.5em;
+	width: 1em;
+	height: 1em;
+	cursor: ne-resize;
+}
+.gizmo-scale-offset .bottom.right {
+	top: initial;
+	bottom: -0.5em;
+	left: initial;
+	right: -0.5em;
+	width: 1em;
+	height: 1em;
+	cursor: se-resize;
+}

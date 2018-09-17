@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
-import { getSelectedBox, getDragging, setDragging } from '../../reducers/ui';
+import { getSelectedBox, setDragging } from '../../reducers/ui';
 import { getBoxById, setAnchor } from '../../reducers/box';
 
 import Gizmo from './Gizmo';
