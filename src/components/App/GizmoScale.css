@@ -1,40 +1,40 @@
-.gizmo-scale {
+.gizmo-scale .gizmo-anchor {
 	position: absolute;
 	margin: auto;
 	background: yellow;
 	pointer-events: initial;
 }
 
-.gizmo-scale.anchorTop,
-.gizmo-scale.anchorBottom {
+.gizmo-scale .top,
+.gizmo-scale .bottom {
 	left: 25%;
 	right: 25%;
 	height: 8px;
 }
 
-.gizmo-scale.anchorTop {
+.gizmo-scale .top {
 	top: -4px;
 	cursor: n-resize;
 }
 
-.gizmo-scale.anchorBottom {
+.gizmo-scale .bottom {
 	bottom: -4px;
 	cursor: s-resize;
 }
 
-.gizmo-scale.anchorLeft,
-.gizmo-scale.anchorRight {
+.gizmo-scale .left,
+.gizmo-scale .right {
 	top: 25%;
 	bottom: 25%;
 	width: 8px;
 }
 
-.gizmo-scale.anchorLeft {
+.gizmo-scale .left {
 	left: -4px;
 	cursor: w-resize;
 }
 
-.gizmo-scale.anchorRight {
+.gizmo-scale .right {
 	right: -4px;
 	cursor: e-resize;
 }

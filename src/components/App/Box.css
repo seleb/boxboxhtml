@@ -13,9 +13,7 @@
 }
 
 .box-anchor {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	z-index: 100;
 	position: absolute;
 	background: none;
 	border: dashed red 2px;

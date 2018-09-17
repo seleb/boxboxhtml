@@ -6,13 +6,14 @@ export const UI_DRAGGING_SET = 'ui:dragging:set';
 export function selectBox(box = '') {
 	return { type: UI_BOX_SELECT, box };
 }
-export function setDragging(id = '', dragging = false) {
-	return { type: UI_DRAGGING_SET, id, dragging };
+export function setDragging(id = '') {
+	return { type: UI_DRAGGING_SET, id };
 }
 
 // reducer
 const initialState = {
 	selectedBox: '',
+	dragging: '',
 };
 
 export default function reducer(state = initialState, action) {
@@ -25,10 +26,7 @@ export default function reducer(state = initialState, action) {
 		case UI_DRAGGING_SET:
 			return {
 				...state,
-				dragging: action.dragging ? {
-					id: action.id,
-					dragging: action.dragging,
-				} : undefined,
+				dragging: action.id,
 			};
 		default:
 			return state;
@@ -42,6 +40,6 @@ export const getSelectedBox = (state) => {
 	return selectedBox;
 };
 export const getDragging = (state) => {
-	const { dragging = false } = getState(state);
+	const { dragging = '' } = getState(state);
 	return dragging;
 };

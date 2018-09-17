@@ -1,52 +1,33 @@
-.gizmo-translate {
+.gizmo-translate .gizmo-anchor {
 	position: absolute;
 	bottom: 50%;
 	left: 50%;
-	width: 50px;
-	height: 50px;
-}
-
-.gizmo-translate>.x {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 5px;
-	background: red;
-}
-
-.gizmo-translate>.y {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 5px;
-	height: 100%;
-	background: green;
-}
-
-
-.gizmo-translate>.both {
-	position: absolute;
-	bottom: 5px;
-	left: 5px;
-	width: 50%;
-	height: 50%;
-	background: yellow;
-}
-
-.gizmo-translate>.x,
-.gizmo-translate>.y,
-.gizmo-translate>.both {
 	opacity: 0.75;
 	pointer-events: initial;
 	cursor: move;
 }
 
-.gizmo-translate>.x:hover,
-.gizmo-translate>.y:hover,
-.gizmo-translate>.both:hover,
-.gizmo-translate>.x.selected,
-.gizmo-translate>.y.selected,
-.gizmo-translate>.both.selected {
+.gizmo-translate .left.right.top.bottom {
+	width: 25px;
+	height: 25px;
+	background: yellow;
+	border-bottom: solid 5px red;
+	border-left: solid 5px green;
+}
+
+.gizmo-translate .left.right {
+	width: 50px;
+	height: 5px;
+	background: red;
+}
+
+.gizmo-translate .top.bottom {
+	width: 5px;
+	height: 50px;
+	background: green;
+}
+
+.gizmo-translate .gizmo-anchor:hover,
+.gizmo-translate .gizmo.selected .gizmo-anchor {
 	opacity: 1;
 }

@@ -101,12 +101,9 @@ export class Box extends Component {
 					</ol>
 				</div>
 				{selected && <div class="box-anchor" style={anchorStyle}>
-					<GizmoTranslate id="translate" />
-					<GizmoScale id="scale-bottom" anchor="anchorBottom" dir="y" />
-					<GizmoScale id="scale-top" anchor="anchorTop" dir="y" />
-					<GizmoScale id="scale-left" anchor="anchorLeft" dir="x" />
-					<GizmoScale id="scale-right" anchor="anchorRight" dir="x" />
 					<div class="box-offset" style={offsetStyle} />
+					<GizmoTranslate />
+					<GizmoScale />
 				</div>}
 			</Fragment>
 		);
