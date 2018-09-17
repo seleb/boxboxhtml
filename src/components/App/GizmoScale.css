@@ -1,79 +1,78 @@
 .gizmo-scale .gizmo-anchor {
 	position: absolute;
 	margin: auto;
-	background: yellow;
 	pointer-events: initial;
 }
 
 /* edges */
 .gizmo-scale .top,
 .gizmo-scale .bottom {
-	left: 25%;
-	right: 25%;
-	height: 8px;
+	left: 8px;
+	right: 8px;
+	height: 16px;
 }
 
 .gizmo-scale .top {
-	top: -4px;
+	top: -8px;
 	cursor: n-resize;
 }
 
 .gizmo-scale .bottom {
-	bottom: -4px;
+	bottom: -8px;
 	cursor: s-resize;
 }
 
 .gizmo-scale .left,
 .gizmo-scale .right {
-	top: 25%;
-	bottom: 25%;
-	width: 8px;
+	top: 8px;
+	bottom: 8px;
+	width: 16px;
 }
 
 .gizmo-scale .left {
-	left: -4px;
+	left: -8px;
 	cursor: w-resize;
 }
 
 .gizmo-scale .right {
-	right: -4px;
+	right: -8px;
 	cursor: e-resize;
 }
 
 /* corners */
 .gizmo-scale .top.left {
-	top: -4px;
+	top: -8px;
 	bottom: initial;
-	left: -4px;
+	left: -8px;
 	right: initial;
-	width: 8px;
-	height: 8px;
+	width: 16px;
+	height: 16px;
 	cursor: nw-resize;
 }
 .gizmo-scale .bottom.left {
 	top: initial;
-	bottom: -4px;
-	left: -4px;
+	bottom: -8px;
+	left: -8px;
 	right: initial;
-	width: 8px;
-	height: 8px;
+	width: 16px;
+	height: 16px;
 	cursor: sw-resize;
 }
 .gizmo-scale .top.right {
-	top: -4px;
+	top: -8px;
 	bottom: initial;
 	left: initial;
-	right: -4px;
-	width: 8px;
-	height: 8px;
+	right: -8px;
+	width: 16px;
+	height: 16px;
 	cursor: ne-resize;
 }
 .gizmo-scale .bottom.right {
 	top: initial;
-	bottom: -4px;
+	bottom: -8px;
 	left: initial;
-	right: -4px;
-	width: 8px;
-	height: 8px;
+	right: -8px;
+	width: 16px;
+	height: 16px;
 	cursor: se-resize;
 }
