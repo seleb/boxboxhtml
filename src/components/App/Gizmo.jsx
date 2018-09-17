@@ -13,6 +13,7 @@ export class Gizmo extends Component {
 		event.preventDefault();
 		event.stopPropagation();
 		// stop dragging
+		this.props.onStopDrag();
 		this.props.stopDragging();
 		document.removeEventListener('mouseup', this.onMouseUp);
 		document.removeEventListener('mousemove', this.onMouseMove);
@@ -37,11 +38,9 @@ export class Gizmo extends Component {
 			...this.parent,
 		});
 		const drag = {
-			deltaX: x - this.x,
-			deltaY: y - this.y,
+			x: x - this.x,
+			y: y - this.y,
 		};
-		this.x = x;
-		this.y = y;
 		this.props.onDrag(drag);
 		return false;
 	}
@@ -78,6 +77,7 @@ export class Gizmo extends Component {
 		});
 		this.x = x;
 		this.y = y;
+		this.props.onStartDrag({ x, y });
 		this.props.startDragging(this.id);
 		document.addEventListener('mouseup', this.onMouseUp);
 		document.addEventListener('mousemove', this.onMouseMove);
