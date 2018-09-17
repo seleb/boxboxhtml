@@ -12,6 +12,16 @@ import GizmoScaleOffset from './GizmoScaleOffset';
 
 import './Box.css';
 
+export function AnchorGrid({
+	colour = 'black',
+	units = 0,
+}) {
+	const p = 1/units*100;
+	let g = `repeating-linear-gradient(0deg, ${colour}, transparent 1px, transparent calc(${p}% - 1px), ${colour} ${p}%)`;
+	g = g + ',' + g.replace('0deg', '-90deg');
+	return <div class="box-grid" style={{ backgroundImage: g }} />;
+}
+
 const colourCycle = [
 	[0, 0, 0],
 	[50, 50, 50],
@@ -70,6 +80,7 @@ export class Box extends Component {
 		anchorBottom = 1,
 		children = [],
 		colour = [0, 0, 0],
+		gridAnchor = 0,
 	}) {
 		const anchorStyle = {
 			top: `${anchorTop * 100}%`,
@@ -88,12 +99,14 @@ export class Box extends Component {
 			bottom: `calc(${anchorStyle.bottom} + ${offsetStyle.bottom})`,
 			left: `calc(${anchorStyle.left} + ${offsetStyle.left})`,
 			right: `calc(${anchorStyle.right} + ${offsetStyle.right})`,
-			background: `rgba(${colour.join(', ')}, ${selected ? 1 : 0.75})`,
+			backgroundColor: `rgba(${colour.join(', ')}, ${selected ? 1 : 0.75})`,
 		};
 		const colourOffset = colourCycle.findIndex(c => c === colour);
+		
 		return (
 			<Fragment>
 				<div class={`box ${selected ? 'selected' : ''}`} onMouseDown={this.onMouseDown} style={style}>
+				<AnchorGrid colour={'rgba(0,0,0,0.25)'} units={gridAnchor} />
 					{id}
 					<ol class="children">
 						{children.map((child, idx) => {
@@ -130,7 +143,7 @@ export function mapStateToProps(state, { id = '' }) {
 	anchorLeft = clamp(0, anchorLeft, anchorRight);
 	anchorBottom = clamp(Math.max(0, anchorTop), anchorBottom, 1);
 	anchorTop = clamp(0, anchorTop, anchorBottom);
-	// const gridAnchor = getGridAnchor(state);
+	const gridAnchor = getGridAnchor(state);
 	// if (gridAnchor) {
 	// 	anchorRight = Math.round(anchorRight * gridAnchor) / gridAnchor;
 	// 	anchorLeft = Math.round(anchorLeft * gridAnchor) / gridAnchor;
@@ -155,6 +168,7 @@ export function mapStateToProps(state, { id = '' }) {
 		anchorTop,
 		anchorBottom,
 		children: getChildrenForId(state, id),
+		gridAnchor,
 	};
 }
 

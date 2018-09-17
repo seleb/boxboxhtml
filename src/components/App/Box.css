@@ -5,7 +5,8 @@
 	color: white;
 	transition: opacity 0.25s ease-in-out, background 0.25s ease-in-out;
 }
-.box>.children{
+
+.box>.children {
 	opacity: 1;
 	transition: opacity 0.25s ease-in-out, background 0.25s ease-in-out;
 }
@@ -13,8 +14,20 @@
 .box.selected {
 	border: none;
 }
+
 .box.selected>.children {
 	opacity: 0.5;
+}
+
+.box .box-grid {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-position: top left;
+	background-origin: border-box;
+	pointer-events: none;
 }
 
 .box-anchor {
@@ -24,6 +37,7 @@
 	border: dashed magenta 2px;
 	pointer-events: none;
 }
+
 .box-anchor>.box-offset {
 	display: block;
 	position: absolute;
@@ -31,6 +45,7 @@
 	border: dashed cyan 2px;
 	pointer-events: none;
 }
+
 .box-anchor>.gizmo {
 	flex: none;
 }
