@@ -3,6 +3,11 @@
 	position: absolute;
 	border: dashed 1px black;
 	color: white;
+	transition: opacity 0.25s ease-in-out, background 0.25s ease-in-out;
+}
+.box>.children{
+	opacity: 1;
+	transition: opacity 0.25s ease-in-out, background 0.25s ease-in-out;
 }
 
 .box.selected {
