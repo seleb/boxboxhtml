@@ -1,6 +1,6 @@
 import { h, Component, Fragment } from 'preact';
 import { connect } from 'preact-redux';
-import { clamp } from '../../utils';
+import { clamp, getStyle } from '../../utils';
 
 import { getSelectedBox, getGridAnchor, getGridOffset, selectBox } from '../../reducers/ui';
 import { getBoxById, getChildrenForId, createBox, setAnchor } from '../../reducers/box';
@@ -16,7 +16,7 @@ export function AnchorGrid({
 	colour = 'black',
 	units = 0,
 }) {
-	const p = 1/units*100;
+	const p = 1 / units * 100;
 	let g = `repeating-linear-gradient(0deg, ${colour}, transparent 1px, transparent calc(${p}% - 1px), ${colour} ${p}%)`;
 	g = g + ',' + g.replace('0deg', '-90deg');
 	return <div class="box-grid" style={{ backgroundImage: g }} />;
@@ -82,31 +82,27 @@ export class Box extends Component {
 		colour = [0, 0, 0],
 		gridAnchor = 0,
 	}) {
-		const anchorStyle = {
-			top: `${anchorTop * 100}%`,
-			bottom: `${(1 - anchorBottom) * 100}%`,
-			left: `${anchorLeft * 100}%`,
-			right: `${(1 - anchorRight) * 100}%`,
-		};
-		const offsetStyle = {
-			top: `${offsetTop}px`,
-			bottom: `${-offsetBottom}px`,
-			left: `${offsetLeft}px`,
-			right: `${-offsetRight}px`,
-		};
-		const style = {
-			top: `calc(${anchorStyle.top} + ${offsetStyle.top})`,
-			bottom: `calc(${anchorStyle.bottom} + ${offsetStyle.bottom})`,
-			left: `calc(${anchorStyle.left} + ${offsetStyle.left})`,
-			right: `calc(${anchorStyle.right} + ${offsetStyle.right})`,
-			backgroundColor: `rgba(${colour.join(', ')}, ${selected ? 1 : 0.75})`,
-		};
+		const {
+			anchorStyle,
+			offsetStyle,
+			style,
+		} = getStyle({
+			offsetLeft,
+			offsetRight,
+			offsetTop,
+			offsetBottom,
+			anchorLeft,
+			anchorRight,
+			anchorTop,
+			anchorBottom,
+		})
+		style.backgroundColor = `rgba(${colour.join(', ')}, ${selected ? 1 : 0.75})`;
 		const colourOffset = colourCycle.findIndex(c => c === colour);
-		
+
 		return (
 			<Fragment>
 				<div class={`box ${selected ? 'selected' : ''}`} onMouseDown={this.onMouseDown} style={style}>
-				<AnchorGrid colour={'rgba(0,0,0,0.25)'} units={gridAnchor} />
+					<AnchorGrid colour={'rgba(0,0,0,0.25)'} units={gridAnchor} />
 					{id}
 					<ol class="children">
 						{children.map((child, idx) => {
