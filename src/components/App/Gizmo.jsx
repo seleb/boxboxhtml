@@ -1,20 +1,14 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
-
-import { getDragging, setDragging } from '../../reducers/ui';
+import { generate } from 'shortid';
+import { getDragging, setDragging, getSelectedBox } from '../../reducers/ui';
 
 import './Gizmo.css';
 
 export class Gizmo extends Component {
-	componentDidUpdate({
-		dragging: oldDragging = false,
-	}) {
-		const {
-			dragging: newDragging = false,
-		} = this.props;
-		if (oldDragging !== newDragging && newDragging) {
-			this.startDragging(newDragging);
-		}
+	constructor(props) {
+		super(props);
+		this.id = generate();
 	}
 	onMouseUp = event => {
 		event.preventDefault();
@@ -54,7 +48,9 @@ export class Gizmo extends Component {
 		};
 	}
 
-	startDragging(dir) {
+	startDragging = (event, dir) => {
+		event.preventDefault();
+		event.stopPropagation();
 		// get parent dimensions for calculating new anchor positions
 		const parent = this.gizmo.parentElement.parentElement.parentElement.parentElement.parentElement; // :/
 		const { left = 0, right = 0, top = 0, bottom = 0 } = parent.getBoundingClientRect();
@@ -66,6 +62,7 @@ export class Gizmo extends Component {
 		const { x = 0, y = 0 } = this.getMousePos(event);
 		this.x = x;
 		this.y = y;
+		this.props.setDragging(this.id, dir);
 		document.addEventListener('mouseup', this.onMouseUp);
 		document.addEventListener('mousemove', this.onMouseMove);
 		return false;
@@ -73,15 +70,32 @@ export class Gizmo extends Component {
 
 	render({
 		children = [],
+		id = '',
+		dragging = false,
+		boxId = '',
+		selected = '',
 	}) {
+		if (boxId !== selected) {
+			return;
+		}
+		if (id && id !== this.id) {
+			return;
+		}
 		return (
 			<div class="gizmo" ref={gizmo => this.gizmo = gizmo}>{children}</div>
 		);
 	}
 }
 
+export function mapStateToProps(state) {
+	return {
+		...getDragging(state),
+		selected: getSelectedBox(state),
+	};
+}
+
 const mapDispatchToProps = {
 	setDragging,
 };
 
-export default connect(undefined, mapDispatchToProps)(Gizmo);
+export default connect(mapStateToProps, mapDispatchToProps, undefined, { withRef: true })(Gizmo);

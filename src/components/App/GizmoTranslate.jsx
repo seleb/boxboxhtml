@@ -10,22 +10,13 @@ import './GizmoTranslate.css';
 
 export class GizmoTranslate extends Component {
 	onMouseDownX = event => {
-		event.preventDefault();
-		event.stopPropagation();
-		this.props.setDragging(this.props.id, 'x');
-		return false;
+		return this.gizmo.getWrappedInstance().startDragging(event, 'x');
 	}
 	onMouseDownY = event => {
-		event.preventDefault();
-		event.stopPropagation();
-		this.props.setDragging(this.props.id, 'y');
-		return false;
+		return this.gizmo.getWrappedInstance().startDragging(event, 'y');
 	}
 	onMouseDownBoth = event => {
-		event.preventDefault();
-		event.stopPropagation();
-		this.props.setDragging(this.props.id, 'both');
-		return false;
+		return this.gizmo.getWrappedInstance().startDragging(event, 'both');
 	}
 	onDrag = ({
 		deltaX = 0,
@@ -47,11 +38,8 @@ export class GizmoTranslate extends Component {
 			dragging = false,
 		} = {},
 	}) {
-		if (draggingId && id !== draggingId) {
-			return null;
-		}
 		return (
-			<Gizmo onDrag={this.onDrag} id={id} ref={gizmo => this.gizmo = gizmo} dragging={dragging}>
+			<Gizmo onDrag={this.onDrag} boxId={id} ref={gizmo => this.gizmo = gizmo}>
 				<div class="gizmo-translate">
 					{(!dragging || dragging === 'x') && <div class={`x ${dragging === 'x' ? 'selected' : ''}`} onMouseDown={this.onMouseDownX} />}
 					{(!dragging || dragging === 'y') && <div class={`y ${dragging === 'y' ? 'selected' : ''}`} onMouseDown={this.onMouseDownY} />}

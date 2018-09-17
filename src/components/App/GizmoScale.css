@@ -1,0 +1,40 @@
+.gizmo-scale {
+	position: absolute;
+	margin: auto;
+	background: yellow;
+	pointer-events: initial;
+}
+
+.gizmo-scale.anchorTop,
+.gizmo-scale.anchorBottom {
+	left: 25%;
+	right: 25%;
+	height: 8px;
+}
+
+.gizmo-scale.anchorTop {
+	top: -4px;
+	cursor: n-resize;
+}
+
+.gizmo-scale.anchorBottom {
+	bottom: -4px;
+	cursor: s-resize;
+}
+
+.gizmo-scale.anchorLeft,
+.gizmo-scale.anchorRight {
+	top: 25%;
+	bottom: 25%;
+	width: 8px;
+}
+
+.gizmo-scale.anchorLeft {
+	left: -4px;
+	cursor: w-resize;
+}
+
+.gizmo-scale.anchorRight {
+	right: -4px;
+	cursor: e-resize;
+}
