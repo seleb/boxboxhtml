@@ -5,6 +5,7 @@
 	pointer-events: initial;
 }
 
+/* edges */
 .gizmo-scale .top,
 .gizmo-scale .bottom {
 	left: 25%;
@@ -37,4 +38,42 @@
 .gizmo-scale .right {
 	right: -4px;
 	cursor: e-resize;
+}
+
+/* corners */
+.gizmo-scale .top.left {
+	top: -4px;
+	bottom: initial;
+	left: -4px;
+	right: initial;
+	width: 8px;
+	height: 8px;
+	cursor: nw-resize;
+}
+.gizmo-scale .bottom.left {
+	top: initial;
+	bottom: -4px;
+	left: -4px;
+	right: initial;
+	width: 8px;
+	height: 8px;
+	cursor: sw-resize;
+}
+.gizmo-scale .top.right {
+	top: -4px;
+	bottom: initial;
+	left: initial;
+	right: -4px;
+	width: 8px;
+	height: 8px;
+	cursor: ne-resize;
+}
+.gizmo-scale .bottom.right {
+	top: initial;
+	bottom: -4px;
+	left: initial;
+	right: -4px;
+	width: 8px;
+	height: 8px;
+	cursor: se-resize;
 }
