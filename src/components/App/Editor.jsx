@@ -4,6 +4,7 @@ import './Editor.css';
 import { connect } from 'preact-redux';
 import { getSelectedBox, getGridAnchor, getGridOffset, setGridAnchor, setGridOffset } from '../../reducers/ui';
 import { getBoxById, getChildrenForId, setOffset, setAnchor } from '../../reducers/box';
+import Export from './Export';
 
 export class Editor extends Component {
 	onInputOffset = ({
@@ -104,6 +105,8 @@ export class Editor extends Component {
 				<label htmlFor="anchorBottom">Bottom</label>
 				<input name="anchorBottom" type="range" min={anchorTop} max="1" step="any" value={anchorBottom} onInput={this.onInputAnchor} />
 				<input name="anchorBottom" type="number" min={anchorTop} max="1" step="0.1" value={anchorBottom} onInput={this.onInputAnchor} />
+				<h2>Export</h2>
+				<Export />
 			</section>
 		);
 	}
