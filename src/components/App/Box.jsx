@@ -2,7 +2,7 @@ import { h, Component, Fragment } from 'preact';
 import { connect } from 'preact-redux';
 import { clamp } from '../../utils';
 
-import { getSelectedBox, selectBox } from '../../reducers/ui';
+import { getSelectedBox, getGrid, selectBox } from '../../reducers/ui';
 import { getBoxById, getChildrenForId, createBox, setAnchor } from '../../reducers/box';
 
 import GizmoTranslate from './GizmoTranslate';
@@ -125,6 +125,13 @@ export function mapStateToProps(state, { id = '' }) {
 	anchorLeft = clamp(0, anchorLeft, anchorRight);
 	anchorBottom = clamp(Math.max(0, anchorTop), anchorBottom, 1);
 	anchorTop = clamp(0, anchorTop, anchorBottom);
+	const grid = getGrid(state);
+	if (grid) {
+		anchorRight = Math.round(anchorRight*grid)/grid;
+		anchorLeft = Math.round(anchorLeft*grid)/grid;
+		anchorTop = Math.round(anchorTop*grid)/grid;
+		anchorBottom = Math.round(anchorBottom*grid)/grid;
+	}
 	return {
 		selected: getSelectedBox(state) === id,
 		offsetLeft,
