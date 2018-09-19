@@ -26,8 +26,8 @@ export class Export extends Component {
 			const box = getBoxById(state, id);
 			const { style } = getStyle(box);
 			const space = new Array(depth).fill(0).map(() => '\t').join('');
-			return `${space}<div style="position: absolute; top: ${style.top}; bottom: ${style.bottom}; left: ${style.left}; right: ${style.right};">
-${getChildrenForId(state, id).map(child => getHtml(child, depth + 1)).join('\n') || `<!-- ${id} content -->`}
+			return `${space}<div class="${box.name}" style="position: absolute; top: ${style.top}; bottom: ${style.bottom}; left: ${style.left}; right: ${style.right};">
+${getChildrenForId(state, id).map(child => getHtml(child, depth + 1)).join('\n') || `<!-- ${box.name} content -->`}
 ${space}</div>`;
 		};
 		this.setState({

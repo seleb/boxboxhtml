@@ -3,7 +3,7 @@ import { h, Component } from 'preact';
 import './Editor.css';
 import { connect } from 'preact-redux';
 import { getSelectedBox, getGridAnchor, getGridOffset, setGridAnchor, setGridOffset } from '../../reducers/ui';
-import { getBoxById, getChildrenForId, setOffset, setAnchor } from '../../reducers/box';
+import { getBoxById, getChildrenForId, setOffset, setAnchor, setName } from '../../reducers/box';
 import Export from './Export';
 
 export function OffsetCtrl({
@@ -94,9 +94,17 @@ export class Editor extends Component {
 	}) => {
 		this.props.setGridOffset(value);
 	}
+	
+	onInputName = ({
+		currentTarget: {
+			value = '',
+		},
+	}) => {
+		this.props.setName({ id: this.props.id, name: value });
+	}
 
 	render({
-		id = '',
+		name = '',
 		offsetLeft = 0,
 		offsetRight = 0,
 		offsetTop = 0,
@@ -121,6 +129,13 @@ export class Editor extends Component {
 						<label htmlFor="gridAnchor">Anchor</label>
 						<input name="gridAnchor" id="gridAnchor" type="number" min="0" max="100" value={gridAnchor} onInput={this.onInputGridAnchor} />
 						<label htmlFor="gridAnchor">segments</label>
+					</div>
+				</section>
+				<section class="section-name">
+					<h2>Name</h2>
+					<div class="ctrl ctrl-name">
+						<label htmlFor="boxName">Name</label>
+						<input name="boxName" id="boxName" type="text" value={name} onInput={this.onInputName}/>
 					</div>
 				</section>
 				<section class="section-offsets">
@@ -160,6 +175,7 @@ export function mapStateToProps(state) {
 const mapDispatchToProps = {
 	setOffset,
 	setAnchor,
+	setName,
 	setGridAnchor,
 	setGridOffset,
 };

@@ -26,6 +26,10 @@ export function setAnchor({ id = '', anchorLeft = 0, anchorRight = 0, anchorTop 
 	return { type: BOX_ANCHOR_SET, id, anchorLeft, anchorRight, anchorTop, anchorBottom };
 }
 
+export function setName({ id = '', name = '' }) {
+	return { type: BOX_NAME_SET, id, name };
+}
+
 // reducer
 
 const initialBox = {
@@ -44,6 +48,7 @@ const initialState = {
 	byId: {
 		root: {
 			...initialBox,
+			name: 'root',
 			anchorLeft: 0,
 			anchorRight: 1,
 			anchorTop: 0,
@@ -103,6 +108,7 @@ export default function reducer(state = initialState, action) {
 				const newState = deleteRecurse(state, action.id);
 				return newState;
 			}
+		case BOX_NAME_SET:
 		case BOX_OFFSET_SET:
 		case BOX_ANCHOR_SET:
 			return {
@@ -119,6 +125,11 @@ export default function reducer(state = initialState, action) {
 
 export function reducerBox(state = initialBox, action) {
 	switch (action.type) {
+		case BOX_NAME_SET:
+			return {
+				...state,
+				name: action.name,
+			};
 		case BOX_OFFSET_SET:
 			return {
 				...state,
