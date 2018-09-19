@@ -63,7 +63,10 @@ export default function reducer(state = initialState, action) {
 				...state,
 				byId: {
 					...state.byId,
-					[action.id]: initialBox,
+					[action.id]: {
+						...initialBox,
+						name: action.id,
+					},
 				},
 				children: {
 					...state.children,
@@ -144,6 +147,7 @@ export const getById = (state) => {
 export const getBoxById = (state, id) => {
 	let {
 		[id]: {
+			name = '',
 			offsetLeft = 0,
 			offsetRight = 0,
 			offsetTop = 0,
@@ -170,6 +174,7 @@ export const getBoxById = (state, id) => {
 		offsetBottom = Math.round(offsetBottom / gridOffset) * gridOffset;
 	}
 	return {
+		name,
 		offsetLeft: parseFloat(offsetLeft),
 		offsetRight: parseFloat(offsetRight),
 		offsetTop: parseFloat(offsetTop),

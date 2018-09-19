@@ -30,6 +30,7 @@ export class OutlinerEntry extends Component {
 
 	render({
 		id = '',
+		name = '',
 		selected = false,
 		children = [],
 		depth = 0,
@@ -37,7 +38,7 @@ export class OutlinerEntry extends Component {
 		return (
 			<div class={`outliner-entry ${selected ? 'selected' : ''}`} onClick={this.onClick}>
 				<div class="item">
-					<span>{id}</span>
+					<span>{name}</span>
 					{selected && id !== 'root' && <button class="delete" onClick={this.delete}>x</button>}
 				</div>
 				<ul class="children">
@@ -50,9 +51,12 @@ export class OutlinerEntry extends Component {
 }
 
 export function mapStateToProps(state, { id = '' }) {
+	const {
+		name = '',
+	} = getBoxById(state, id);
 	return {
 		selected: getSelectedBox(state) === id,
-		...getBoxById(state, id),
+		name,
 		children: getChildrenForId(state, id),
 	};
 }

@@ -48,7 +48,7 @@ export class Box extends Component {
 	}
 
 	render({
-		id = '',
+		name = '',
 		selected = false,
 		offsetLeft = 0,
 		offsetRight = 0,
@@ -84,7 +84,7 @@ export class Box extends Component {
 			<Fragment>
 				<div class={`box ${selected ? 'selected' : ''}`} onMouseDown={this.onMouseDown} style={style}>
 					{childSelected && <AnchorGrid colour={'rgba(0,0,0,0.25)'} units={gridAnchor} />}
-					{id}
+					{name}
 					<ol class="children">
 						{children.map((child, idx) => {
 							const colour = colourCycle[(idx + colourOffset + 1) % colourCycle.length];
@@ -107,6 +107,7 @@ export class Box extends Component {
 
 export function mapStateToProps(state, { id = '' }) {
 	let {
+		name = '',
 		offsetLeft = 0,
 		offsetRight = 0,
 		offsetTop = 0,
@@ -121,23 +122,11 @@ export function mapStateToProps(state, { id = '' }) {
 	anchorBottom = clamp(Math.max(0, anchorTop), anchorBottom, 1);
 	anchorTop = clamp(0, anchorTop, anchorBottom);
 	const gridAnchor = getGridAnchor(state);
-	// if (gridAnchor) {
-	// 	anchorRight = Math.round(anchorRight * gridAnchor) / gridAnchor;
-	// 	anchorLeft = Math.round(anchorLeft * gridAnchor) / gridAnchor;
-	// 	anchorTop = Math.round(anchorTop * gridAnchor) / gridAnchor;
-	// 	anchorBottom = Math.round(anchorBottom * gridAnchor) / gridAnchor;
-	// }
-	// const gridOffset = getGridOffset(state);
-	// if (gridOffset) {
-	// 	offsetRight = Math.round(offsetRight / gridOffset) * gridOffset;
-	// 	offsetLeft = Math.round(offsetLeft / gridOffset) * gridOffset;
-	// 	offsetTop = Math.round(offsetTop / gridOffset) * gridOffset;
-	// 	offsetBottom = Math.round(offsetBottom / gridOffset) * gridOffset;
-	// }
 	const selected = getSelectedBox(state);
 	const children = getChildrenForId(state, id);
 	return {
 		selected: selected === id && id !== 'root',
+		name,
 		offsetLeft,
 		offsetRight,
 		offsetTop,
