@@ -4,6 +4,7 @@ import './App.css';
 import Boxes from './App/Boxes';
 import Editor from './App/Editor';
 import Outliner from './App/Outliner';
+import KeyHandler from './App/KeyHandler';
 
 export default function App() {
 	return (
@@ -12,6 +13,7 @@ export default function App() {
 				<Outliner />
 				<Boxes />
 				<Editor />
+				<KeyHandler />
 			</main>
 			<footer>
 				<h2>boxboxhtml</h2>

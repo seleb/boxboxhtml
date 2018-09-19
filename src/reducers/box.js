@@ -4,6 +4,7 @@ import { clamp } from '../utils';
 
 // actions
 export const BOX_CREATE = 'box:create';
+export const BOX_DELETE = 'box:delete';
 export const BOX_NAME_SET = 'box:name:set';
 export const BOX_OFFSET_SET = 'box:offset:set';
 export const BOX_ANCHOR_SET = 'box:anchor:set';
@@ -11,6 +12,10 @@ export const BOX_ANCHOR_SET = 'box:anchor:set';
 // action creators
 export function createBox(parent = 'root') {
 	return { type: BOX_CREATE, id: generate(), parent };
+}
+
+export function deleteBox(id = '') {
+	return { type: BOX_DELETE, id };
 }
 
 export function setOffset({ id = '', offsetLeft = 0, offsetRight = 0, offsetTop = 0, offsetBottom = 0 }) {
@@ -42,6 +47,7 @@ const initialState = {
 	children: {
 		root: [],
 	},
+	parents: {},
 };
 
 export default function reducer(state = initialState, action) {
@@ -58,7 +64,36 @@ export default function reducer(state = initialState, action) {
 					[action.parent]: state.children[action.parent].concat(action.id),
 					[action.id]: [],
 				},
+				parents: {
+					...state.parents,
+					[action.id]: action.parent,
+				},
 			};
+		case BOX_DELETE:
+			{
+				const deleteRecurse = (state = {}, id = '') => {
+					const {
+						byId: {
+							[id]: deleted = {},
+							...byId,
+						},
+						children: {
+							[id]: deletedChildren = [],
+							...children,
+						},
+						parents: {
+							[id]: parent,
+							...parents,
+						},
+					} = state;
+					children[parent] = (children[parent] || []).filter(child => child !== id);
+					return deletedChildren.reduce((result = {}, child = '') => {
+						return deleteRecurse(result, child);
+					}, { byId, children, parents });
+				};
+				const newState = deleteRecurse(state, action.id);
+				return newState;
+			}
 		case BOX_OFFSET_SET:
 		case BOX_ANCHOR_SET:
 			return {
@@ -87,7 +122,7 @@ export function reducerBox(state = initialBox, action) {
 			return {
 				...state,
 				anchorLeft: action.anchorLeft,
-				anchorRight:action.anchorRight,
+				anchorRight: action.anchorRight,
 				anchorTop: action.anchorTop,
 				anchorBottom: action.anchorBottom,
 			};
@@ -113,7 +148,7 @@ export const getBoxById = (state, id) => {
 			anchorBottom = 0,
 		} = {},
 	} = getById(state, id);
-	
+
 	const gridAnchor = getGridAnchor(state);
 	if (gridAnchor > 0) {
 		anchorRight = Math.round(anchorRight * gridAnchor) / gridAnchor;
