@@ -8,15 +8,47 @@
 	cursor: pointer;
 	background: white;
 }
-.outliner-entry>.spacer {
-	display: inline-block;
-	width: 0.5em;
-	height: 100%;
+
+.outliner-entry>.item {
+	display: flex;
+	pointer-events: none;
 }
+.outliner-entry>.item span {
+	flex: auto;
+}
+
+.outliner-entry>.children {
+	padding-left: 0.5em;
+}
+
 .outliner-entry.selected {
 	background: grey;
 }
+
 .outliner-entry.selected>.children {
 	opacity: 0.5;
 	background: white;
+}
+
+.outliner-entry .new button {
+	width: 100%;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.outliner-entry .delete {
+	flex: none;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.outliner-entry button {
+	background-color: transparent;
+	pointer-events: initial;
+	transition: background-color 0.25s ease-in-out;
+}
+.outliner-entry button:hover {
+	background-color: rgba(0,0,0,0.1);
 }

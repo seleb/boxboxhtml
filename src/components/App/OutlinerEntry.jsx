@@ -3,8 +3,8 @@ import { h, Component } from 'preact';
 import './OutlinerEntry.css';
 import { connect } from 'preact-redux';
 import { getSelectedBox, selectBox } from '../../reducers/ui';
-import { getBoxById, getChildrenForId, createBox, setAnchor } from '../../reducers/box';
-let num = 10;
+import { getBoxById, getChildrenForId, createBox, deleteBox, setAnchor } from '../../reducers/box';
+
 export class OutlinerEntry extends Component {
 	onClick = ({
 		target,
@@ -20,6 +20,14 @@ export class OutlinerEntry extends Component {
 		}
 	}
 
+	createBox = () => {
+		this.props.createBox(this.props.id);
+	}
+
+	delete = () => {
+		this.props.deleteBox(this.props.id);
+	}
+
 	render({
 		id = '',
 		selected = false,
@@ -28,10 +36,13 @@ export class OutlinerEntry extends Component {
 	}) {
 		return (
 			<div class={`outliner-entry ${selected ? 'selected' : ''}`} onClick={this.onClick}>
-				{(new Array(depth)).fill(0).map(() => <span class="spacer"/>)}
-				{id !== 'root' && id}
+				<div class="item">
+					<span>{id !== 'root' && id}</span>
+					{selected && <button class="delete" onClick={this.delete}>x</button>}
+				</div>
 				<ul class="children">
-					{children.map(child => <li key={child}><OutlinerEntryConnected id={child} depth={depth+1} /></li>)}
+					{children.map(child => <li key={child}><OutlinerEntryConnected id={child} depth={depth + 1} /></li>)}
+					{selected && <li class="new"><button onClick={this.createBox}>+</button></li>}
 				</ul>
 			</div>
 		);
@@ -48,6 +59,7 @@ export function mapStateToProps(state, { id = '' }) {
 
 const mapDispatchToProps = {
 	selectBox,
+	deleteBox,
 	createBox,
 	setAnchor,
 };
