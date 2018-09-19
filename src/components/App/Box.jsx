@@ -30,27 +30,7 @@ const colourCycle = [
 	[200, 200, 200]
 ];
 
-let num = 20;
 export class Box extends Component {
-	componentDidMount() {
-		if (num > 0) {
-			const n = Math.floor(Math.random() * 3) + 1;
-			num -= n;
-			for (let i = 0; i < n; ++i) {
-				this.props.createBox(this.props.id);
-			}
-		}
-		if (this.props.id !== 'root') {
-			this.props.setAnchor({
-				id: this.props.id,
-				anchorLeft: Math.random() * 0.25,
-				anchorRight: Math.random() * 0.25 + 0.7,
-				anchorTop: Math.random() * 0.25,
-				anchorBottom: Math.random() * 0.25 + 0.75,
-			});
-		}
-	}
-
 	onMouseDown = (event) => {
 		const {
 			target,
