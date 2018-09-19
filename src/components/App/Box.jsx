@@ -59,6 +59,7 @@ export class Box extends Component {
 		anchorTop = 0,
 		anchorBottom = 1,
 		children = [],
+		childSelected = false,
 		colour = [255, 255, 255],
 		gridAnchor = 0,
 	}) {
@@ -82,7 +83,7 @@ export class Box extends Component {
 		return (
 			<Fragment>
 				<div class={`box ${selected ? 'selected' : ''}`} onMouseDown={this.onMouseDown} style={style}>
-					<AnchorGrid colour={'rgba(0,0,0,0.25)'} units={gridAnchor} />
+					{childSelected && <AnchorGrid colour={'rgba(0,0,0,0.25)'} units={gridAnchor} />}
 					{id}
 					<ol class="children">
 						{children.map((child, idx) => {
@@ -133,8 +134,10 @@ export function mapStateToProps(state, { id = '' }) {
 	// 	offsetTop = Math.round(offsetTop / gridOffset) * gridOffset;
 	// 	offsetBottom = Math.round(offsetBottom / gridOffset) * gridOffset;
 	// }
+	const selected = getSelectedBox(state);
+	const children = getChildrenForId(state, id);
 	return {
-		selected: getSelectedBox(state) === id && id !== 'root',
+		selected: selected === id && id !== 'root',
 		offsetLeft,
 		offsetRight,
 		offsetTop,
@@ -143,7 +146,8 @@ export function mapStateToProps(state, { id = '' }) {
 		anchorRight,
 		anchorTop,
 		anchorBottom,
-		children: getChildrenForId(state, id),
+		children,
+		childSelected: children.includes(selected),
 		gridAnchor,
 	};
 }
