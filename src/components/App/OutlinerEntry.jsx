@@ -30,9 +30,9 @@ export class OutlinerEntry extends Component {
 			<div class={`outliner-entry ${selected ? 'selected' : ''}`} onClick={this.onClick}>
 				{(new Array(depth)).fill(0).map(() => <span class="spacer"/>)}
 				{id !== 'root' && id}
-				<ol class="children">
+				<ul class="children">
 					{children.map(child => <li key={child}><OutlinerEntryConnected id={child} depth={depth+1} /></li>)}
-				</ol>
+				</ul>
 			</div>
 		);
 	}
