@@ -6,6 +6,8 @@ import Editor from './App/Editor';
 import Outliner from './App/Outliner';
 import KeyHandler from './App/KeyHandler';
 
+import pkg from './../../package.json';
+
 export default function App() {
 	return (
 		<div class="app">
@@ -16,7 +18,8 @@ export default function App() {
 				<KeyHandler />
 			</main>
 			<footer>
-				<h2>boxboxhtml</h2>
+				<h2>boxboxhtml-{pkg.version}</h2>
+				<a href="https://github.com/seleb/boxboxhtml">Code</a>
 				<a href="https://twitter.com/SeanSLeBlanc">Contact</a>
 			</footer>
 		</div>
