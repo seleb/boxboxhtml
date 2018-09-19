@@ -8,8 +8,8 @@
 }
 
 .gizmo-translate-offset .left.right.top.bottom {
-	width: 25px;
-	height: 25px;
+	width: 35px;
+	height: 35px;
 	background: cyan;
 	border-bottom: solid 5px red;
 	border-left: solid 5px green;
