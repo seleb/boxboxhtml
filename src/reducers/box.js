@@ -35,14 +35,20 @@ const initialBox = {
 	offsetTop: 0,
 	offsetBottom: 0,
 	// % anchor from parent
-	anchorLeft: 0,
-	anchorRight: 1,
-	anchorTop: 0,
-	anchorBottom: 1,
+	anchorLeft: 0.1,
+	anchorRight: 0.9,
+	anchorTop: 0.1,
+	anchorBottom: 0.9,
 };
 const initialState = {
 	byId: {
-		root: initialBox,
+		root: {
+			...initialBox,
+			anchorLeft: 0,
+			anchorRight: 1,
+			anchorTop: 0,
+			anchorBottom: 1,
+		},
 	},
 	children: {
 		root: [],
