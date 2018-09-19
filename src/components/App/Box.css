@@ -3,6 +3,7 @@
 	position: absolute;
 	border: dashed 1px black;
 	color: white;
+	text-shadow: 1px 1px 1px black;
 	transition: opacity 0.25s ease-in-out, background 0.25s ease-in-out;
 }
 

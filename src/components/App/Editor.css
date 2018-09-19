@@ -3,5 +3,24 @@
 	flex-direction: column;
 }
 
+.editor h2 {
+	font-size: 120%;
+	font-weight: bold;
+}
+
 .editor label {
+	display: flex;
+}
+
+.editor label input {
+	flex: auto;
+}
+
+.editor .ctrl-offset {
+	display: grid;
+	grid-template-columns: 5em 1fr 2em;
+	align-items: center;
+	background: lightgrey;
+	border: solid 1px grey;
+	margin: 1px;
 }

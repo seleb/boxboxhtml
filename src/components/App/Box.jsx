@@ -24,9 +24,9 @@ export function AnchorGrid({
 
 const colourCycle = [
 	[0, 0, 0],
-	[50, 50, 50],
-	[100, 100, 100],
 	[150, 150, 150],
+	[100, 100, 100],
+	[50, 50, 50],
 	[200, 200, 200]
 ];
 
@@ -79,7 +79,7 @@ export class Box extends Component {
 		anchorTop = 0,
 		anchorBottom = 1,
 		children = [],
-		colour = [0, 0, 0],
+		colour = [255, 255, 255],
 		gridAnchor = 0,
 	}) {
 		const {

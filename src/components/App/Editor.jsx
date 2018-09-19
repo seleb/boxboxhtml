@@ -6,6 +6,22 @@ import { getSelectedBox, getGridAnchor, getGridOffset, setGridAnchor, setGridOff
 import { getBoxById, getChildrenForId, setOffset, setAnchor } from '../../reducers/box';
 import Export from './Export';
 
+export function OffsetCtrl({
+	name = '',
+	value = 0,
+	onInput,
+	step = 'any',
+}) {
+	const labelName = `offset${name}`;
+	return (
+		<div class="ctrl ctrl-offset">
+			<label htmlFor={labelName}>{name}</label>
+			<input name={labelName} id={labelName} type="number" step={step} value={value} onInput={onInput} />
+			<label htmlFor={labelName}>px</label>
+		</div>
+	);
+}
+
 export class Editor extends Component {
 	onInputOffset = ({
 		currentTarget: {
@@ -75,39 +91,39 @@ export class Editor extends Component {
 		gridOffset = 0,
 	}) {
 		return (
-			<section class="editor" >
-				<h2>Grid</h2>
-				<label htmlFor="gridAnchor">Anchor Units: </label><input type="number" min="0" max="100" value={gridAnchor} onInput={this.onInputGridAnchor} />
-				<label htmlFor="gridOffset">Offset Pixels: </label><input type="number" min="0" value={gridOffset} onInput={this.onInputGridOffset} />
-				<h2>Offset</h2>
-				<label htmlFor="offsetLeft">Left</label>
-				<input name="offsetLeft" type="range" min="-100" max="100" step="any" value={offsetLeft} onInput={this.onInputOffset} />
-				<input name="offsetLeft" type="number" min="-100" max="100" step="10" value={offsetLeft} onInput={this.onInputOffset} />
-				<label htmlFor="offsetRight">Right</label>
-				<input name="offsetRight" type="range" min="-100" max="100" step="any" value={offsetRight} onInput={this.onInputOffset} />
-				<input name="offsetRight" type="number" min="-100" max="100" step="10" value={offsetRight} onInput={this.onInputOffset} />
-				<label htmlFor="offsetTop">Top</label>
-				<input name="offsetTop" type="range" min="-100" max="100" step="any" value={offsetTop} onInput={this.onInputOffset} />
-				<input name="offsetTop" type="number" min="-100" max="100" step="10" value={offsetTop} onInput={this.onInputOffset} />
-				<label htmlFor="offsetBottom">Bottom</label>
-				<input name="offsetBottom" type="range" min="-100" max="100" step="any" value={offsetBottom} onInput={this.onInputOffset} />
-				<input name="offsetBottom" type="number" min="-100" max="100" step="10" value={offsetBottom} onInput={this.onInputOffset} />
-				<h2>Anchor</h2>
-				<label htmlFor="anchorLeft">Left</label>
-				<input name="anchorLeft" type="range" min="0" max={anchorRight} step="any" value={anchorLeft} onInput={this.onInputAnchor} />
-				<input name="anchorLeft" type="number" min="0" max={anchorRight} step="0.1" value={anchorLeft} onInput={this.onInputAnchor} />
-				<label htmlFor="anchorRight">Right</label>
-				<input name="anchorRight" type="range" min={anchorLeft} max="1" step="any" value={anchorRight} onInput={this.onInputAnchor} />
-				<input name="anchorRight" type="number" min={anchorLeft} max="1" step="0.1" value={anchorRight} onInput={this.onInputAnchor} />
-				<label htmlFor="anchorTop">Top</label>
-				<input name="anchorTop" type="range" min="0" max={anchorBottom} step="any" value={anchorTop} onInput={this.onInputAnchor} />
-				<input name="anchorTop" type="number" min="0" max={anchorBottom} step="0.1" value={anchorTop} onInput={this.onInputAnchor} />
-				<label htmlFor="anchorBottom">Bottom</label>
-				<input name="anchorBottom" type="range" min={anchorTop} max="1" step="any" value={anchorBottom} onInput={this.onInputAnchor} />
-				<input name="anchorBottom" type="number" min={anchorTop} max="1" step="0.1" value={anchorBottom} onInput={this.onInputAnchor} />
-				<h2>Export</h2>
-				<Export />
-			</section>
+			<div class="editor">
+				<section class="section-grid">
+					<h2>Grid</h2>
+					<label htmlFor="gridAnchor">Anchor <input type="number" min="0" max="100" value={gridAnchor} onInput={this.onInputGridAnchor} /> segments</label>
+					<label htmlFor="gridOffset">Offset <input type="number" min="0" value={gridOffset} onInput={this.onInputGridOffset} />px</label>
+				</section>
+				<section class="section-offsets">
+					<h2>Offset</h2>
+					<OffsetCtrl step={gridOffset} onInput={this.onInputOffset} value={offsetLeft} name="Left" />
+					<OffsetCtrl step={gridOffset} onInput={this.onInputOffset} value={offsetRight} name="Right" />
+					<OffsetCtrl step={gridOffset} onInput={this.onInputOffset} value={offsetTop} name="Top" />
+					<OffsetCtrl step={gridOffset} onInput={this.onInputOffset} value={offsetBottom} name="Bottom" />
+				</section>
+				<section class="section-anchors">
+					<h2>Anchor</h2>
+					<label htmlFor="anchorLeft">Left</label>
+					<input name="anchorLeft" type="range" min="0" max={anchorRight} step="any" value={anchorLeft} onInput={this.onInputAnchor} />
+					<input name="anchorLeft" type="number" min="0" max={anchorRight} step="0.1" value={anchorLeft} onInput={this.onInputAnchor} />
+					<label htmlFor="anchorRight">Right</label>
+					<input name="anchorRight" type="range" min={anchorLeft} max="1" step="any" value={anchorRight} onInput={this.onInputAnchor} />
+					<input name="anchorRight" type="number" min={anchorLeft} max="1" step="0.1" value={anchorRight} onInput={this.onInputAnchor} />
+					<label htmlFor="anchorTop">Top</label>
+					<input name="anchorTop" type="range" min="0" max={anchorBottom} step="any" value={anchorTop} onInput={this.onInputAnchor} />
+					<input name="anchorTop" type="number" min="0" max={anchorBottom} step="0.1" value={anchorTop} onInput={this.onInputAnchor} />
+					<label htmlFor="anchorBottom">Bottom</label>
+					<input name="anchorBottom" type="range" min={anchorTop} max="1" step="any" value={anchorBottom} onInput={this.onInputAnchor} />
+					<input name="anchorBottom" type="number" min={anchorTop} max="1" step="0.1" value={anchorBottom} onInput={this.onInputAnchor} />
+				</section>
+				<section class="section-export">
+					<h2>Export</h2>
+					<Export />
+				</section>
+			</div>
 		);
 	}
 }
