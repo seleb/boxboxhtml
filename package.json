@@ -1,6 +1,6 @@
 {
 	"name": "boxboxhtml",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"description": "a basic WYSIWYG editor for html/css layouts",
 	"main": "./src/index.js",
 	"author": "Sean S. LeBlanc",
