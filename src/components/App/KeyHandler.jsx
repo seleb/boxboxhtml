@@ -13,7 +13,7 @@ export class KeyHandler extends Component {
 	}
 
 	onKeyDown = (event) => {
-		if (!this.props.selected) {
+		if (!this.props.selected || this.props.selected === 'root') {
 			return;
 		}
 		if (event.key === 'Backspace' || event.key === 'Delete') {

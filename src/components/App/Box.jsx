@@ -154,7 +154,7 @@ export function mapStateToProps(state, { id = '' }) {
 	// 	offsetBottom = Math.round(offsetBottom / gridOffset) * gridOffset;
 	// }
 	return {
-		selected: getSelectedBox(state) === id,
+		selected: getSelectedBox(state) === id && id !== 'root',
 		offsetLeft,
 		offsetRight,
 		offsetTop,

@@ -37,8 +37,8 @@ export class OutlinerEntry extends Component {
 		return (
 			<div class={`outliner-entry ${selected ? 'selected' : ''}`} onClick={this.onClick}>
 				<div class="item">
-					<span>{id !== 'root' && id}</span>
-					{selected && <button class="delete" onClick={this.delete}>x</button>}
+					<span>{id}</span>
+					{selected && id !== 'root' && <button class="delete" onClick={this.delete}>x</button>}
 				</div>
 				<ul class="children">
 					{children.map(child => <li key={child}><OutlinerEntryConnected id={child} depth={depth + 1} /></li>)}

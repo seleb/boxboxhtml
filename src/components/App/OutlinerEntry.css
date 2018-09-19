@@ -7,6 +7,7 @@
 	overflow: hidden;
 	cursor: pointer;
 	background: white;
+	height: 100%;
 }
 
 .outliner-entry>.item {

@@ -20,7 +20,7 @@ export function setGridOffset(grid = 0) {
 
 // reducer
 const initialState = {
-	selectedBox: '',
+	selectedBox: 'root',
 	dragging: '',
 	gridAnchor: 10,
 	gridOffset: 10,
@@ -31,7 +31,7 @@ export default function reducer(state = initialState, action) {
 		case UI_BOX_SELECT:
 			return {
 				...state,
-				selectedBox: action.box === 'root' ? '' : action.box,
+				selectedBox: action.box,
 			};
 		case UI_DRAGGING_SET:
 			return {
