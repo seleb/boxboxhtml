@@ -16,11 +16,64 @@
 	flex: auto;
 }
 
-.editor .ctrl-offset {
+.editor .ctrl {
 	display: grid;
-	grid-template-columns: 5em 1fr 2em;
 	align-items: center;
 	background: lightgrey;
 	border: solid 1px grey;
 	margin: 1px;
 }
+
+.editor .section-offsets,
+.editor .section-anchors {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+.editor .section-offsets h2,
+.editor .section-anchors h2 {
+	grid-column-start: 1;
+	grid-column-end: 3;
+}
+
+/* grid */
+.editor .ctrl-grid {
+	grid-template-columns: 4.5em 1fr 5em;
+}
+.editor .ctrl-grid label {
+	flex: none;
+}
+.editor .ctrl-grid input {
+	flex: auto;
+	width: 100%;
+	min-width: 2em;
+	text-align: right;
+}
+
+/* offsets */
+.editor .ctrl-offset {
+	grid-template-columns: 4.5em 4em auto;
+}
+.editor .ctrl-offset label {
+	flex: none;
+}
+.editor .ctrl-offset input {
+	flex: auto;
+	width: 100%;
+	min-width: 2em;
+	text-align: right;
+}
+
+/* anchors */
+.editor .ctrl-anchor {
+	grid-template-columns: 4.5em 3em 3em;
+}
+.editor .ctrl-anchor label {
+	flex: none;
+}
+.editor .ctrl-anchor input {
+	flex: auto;
+	width: 100%;
+	min-width: 2em;
+	text-align: right;
+}
+

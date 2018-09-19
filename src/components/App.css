@@ -36,8 +36,7 @@
 }
 
 .app>main>.editor {
-	flex: 1;
-	max-width: 300px;
+	flex: none;
 }
 
 .app>footer {

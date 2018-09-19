@@ -16,8 +16,26 @@ export function OffsetCtrl({
 	return (
 		<div class="ctrl ctrl-offset">
 			<label htmlFor={labelName}>{name}</label>
-			<input name={labelName} id={labelName} type="number" step={step} value={value} onInput={onInput} />
+			<input name={labelName} id={labelName} type="number" step={step} value={Number.parseFloat(value).toFixed(2)} onInput={onInput} />
 			<label htmlFor={labelName}>px</label>
+		</div>
+	);
+}
+
+export function AnchorCtrl({
+	name = '',
+	value = 0,
+	onInput,
+	step = 'any',
+	min = 0,
+	max = 1,
+}) {
+	const labelName = `anchor${name}`;
+	return (
+		<div class="ctrl ctrl-anchor">
+			<label htmlFor={labelName}>{name}</label>
+			<input name={labelName} id={labelName} type="range" min={min} max={max} step="any" value={value} onInput={onInput} />
+			<input name={labelName} type="number" min={min} max={max} step={step} value={Number.parseFloat(value).toFixed(2)} onInput={onInput} />
 		</div>
 	);
 }
@@ -94,8 +112,16 @@ export class Editor extends Component {
 			<div class="editor">
 				<section class="section-grid">
 					<h2>Grid</h2>
-					<label htmlFor="gridAnchor">Anchor <input type="number" min="0" max="100" value={gridAnchor} onInput={this.onInputGridAnchor} /> segments</label>
-					<label htmlFor="gridOffset">Offset <input type="number" min="0" value={gridOffset} onInput={this.onInputGridOffset} />px</label>
+					<div class="ctrl ctrl-grid">
+						<label htmlFor="gridOffset">Offset</label>
+						<input name="gridOffset" id="gridOffset" type="number" min="0" value={gridOffset} onInput={this.onInputGridOffset} />
+						<label htmlFor="gridOffset">px</label>
+					</div>
+					<div class="ctrl ctrl-grid">
+						<label htmlFor="gridAnchor">Anchor</label>
+						<input name="gridAnchor" id="gridAnchor" type="number" min="0" max="100" value={gridAnchor} onInput={this.onInputGridAnchor} />
+						<label htmlFor="gridAnchor">segments</label>
+					</div>
 				</section>
 				<section class="section-offsets">
 					<h2>Offset</h2>
@@ -106,18 +132,10 @@ export class Editor extends Component {
 				</section>
 				<section class="section-anchors">
 					<h2>Anchor</h2>
-					<label htmlFor="anchorLeft">Left</label>
-					<input name="anchorLeft" type="range" min="0" max={anchorRight} step="any" value={anchorLeft} onInput={this.onInputAnchor} />
-					<input name="anchorLeft" type="number" min="0" max={anchorRight} step="0.1" value={anchorLeft} onInput={this.onInputAnchor} />
-					<label htmlFor="anchorRight">Right</label>
-					<input name="anchorRight" type="range" min={anchorLeft} max="1" step="any" value={anchorRight} onInput={this.onInputAnchor} />
-					<input name="anchorRight" type="number" min={anchorLeft} max="1" step="0.1" value={anchorRight} onInput={this.onInputAnchor} />
-					<label htmlFor="anchorTop">Top</label>
-					<input name="anchorTop" type="range" min="0" max={anchorBottom} step="any" value={anchorTop} onInput={this.onInputAnchor} />
-					<input name="anchorTop" type="number" min="0" max={anchorBottom} step="0.1" value={anchorTop} onInput={this.onInputAnchor} />
-					<label htmlFor="anchorBottom">Bottom</label>
-					<input name="anchorBottom" type="range" min={anchorTop} max="1" step="any" value={anchorBottom} onInput={this.onInputAnchor} />
-					<input name="anchorBottom" type="number" min={anchorTop} max="1" step="0.1" value={anchorBottom} onInput={this.onInputAnchor} />
+					<AnchorCtrl step={gridAnchor} onInput={this.onInputAnchor} value={anchorLeft} name="Left" max={anchorRight} />
+					<AnchorCtrl step={gridAnchor} onInput={this.onInputAnchor} value={anchorRight} name="Right" min={anchorLeft} />
+					<AnchorCtrl step={gridAnchor} onInput={this.onInputAnchor} value={anchorTop} name="Top" max={anchorBottom} />
+					<AnchorCtrl step={gridAnchor} onInput={this.onInputAnchor} value={anchorBottom} name="Bottom" min={anchorLeft} />
 				</section>
 				<section class="section-export">
 					<h2>Export</h2>
