@@ -24,11 +24,18 @@
 	margin: 1px;
 }
 
+.editor>section {
+	border-bottom: dotted 1px grey;
+	padding-bottom: 0.5em;
+	margin-bottom: 0.5em;
+}
+
 .editor .section-offsets,
 .editor .section-anchors {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 }
+
 .editor .section-offsets h2,
 .editor .section-anchors h2 {
 	grid-column-start: 1;
@@ -39,9 +46,11 @@
 .editor .ctrl-grid {
 	grid-template-columns: 4.5em 1fr 5em;
 }
+
 .editor .ctrl-grid label {
 	flex: none;
 }
+
 .editor .ctrl-grid input {
 	flex: auto;
 	width: 100%;
@@ -53,9 +62,11 @@
 .editor .ctrl-offset {
 	grid-template-columns: 4.5em 4em auto;
 }
+
 .editor .ctrl-offset label {
 	flex: none;
 }
+
 .editor .ctrl-offset input {
 	flex: auto;
 	width: 100%;
@@ -67,9 +78,11 @@
 .editor .ctrl-anchor {
 	grid-template-columns: 4.5em 3em 3em;
 }
+
 .editor .ctrl-anchor label {
 	flex: none;
 }
+
 .editor .ctrl-anchor input {
 	flex: auto;
 	width: 100%;
@@ -77,3 +90,15 @@
 	text-align: right;
 }
 
+.editor .section-export {
+	flex: auto;
+	flex-shrink: 0;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex-direction: column;
+}
+
+.editor .section-export *{
+	flex: none;
+}
