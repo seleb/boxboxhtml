@@ -89,15 +89,15 @@ export default function reducer(state = initialState, action) {
 					const {
 						byId: {
 							[id]: deleted = {},
-							...byId,
+							...byId
 						},
 						children: {
 							[id]: deletedChildren = [],
-							...children,
+							...children
 						},
 						parents: {
 							[id]: parent,
-							...parents,
+							...parents
 						},
 					} = state;
 					children[parent] = (children[parent] || []).filter(child => child !== id);
